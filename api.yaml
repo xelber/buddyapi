@@ -19,7 +19,7 @@ schemes:
 paths:
   /v1/soh/inventory/search:
     post:
-      consumes:
+      consumes: 
       - application/json
       produces:
       - application/json
@@ -66,7 +66,7 @@ paths:
           description: SKU found
           schema:
             $ref: '#/definitions/SOHResponse'
-
+              
         400:
           description: Bad input parameter
         404:
@@ -79,7 +79,7 @@ paths:
           description: Incorrect content type header - only application/json at present
   /v1/pricematch/competitor/search:
     post:
-      consumes:
+      consumes: 
       - application/json
       produces:
       - application/json
@@ -126,7 +126,7 @@ paths:
           description: List of competitors matching the context
           schema:
             $ref: '#/definitions/PriceMatchResponse'
-
+              
         400:
           description: Bad input parameter
         404:
@@ -137,10 +137,10 @@ paths:
           description: Incorrect accept header - only application/json at present
         415:
           description: Incorrect content type header - only application/json at present
-
+  
   /v1/product/search/{query}:
     get:
-      consumes:
+      consumes: 
       - application/json
       produces:
       - application/json
@@ -176,23 +176,23 @@ paths:
         description: Search Query. Needs to be URL encoded. Can be search by name, SKU or GTIN
         required: true
         type: string
-
+        
       responses:
         200:
           description: Product Search Results
           schema:
             $ref: '#/definitions/ProductSearchResponse'
-
+              
         400:
           description: Bad input parameter
         401:
           description: Unauthorized
         406:
           description: Incorrect accept header - only application/json at present
-
+          
   /v1/product/{buddy-product-key}:
     get:
-      consumes:
+      consumes: 
       - application/json
       produces:
       - application/json
@@ -243,14 +243,14 @@ paths:
           description: Return product info
           schema:
             $ref: '#/definitions/ProductInfoResponse'
-
+              
         400:
           description: Bad input parameter
         401:
           description: Unauthorized
         406:
           description: Incorrect accept header - only application/json at present
-
+          
 definitions:
   ResponseHeader:
     type: object
@@ -268,7 +268,7 @@ definitions:
       Messages:
         type: string
         example: "OK"
-
+  
   SOHRequest:
     type: object
     required:
@@ -278,7 +278,7 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/SOHRequestedItem'
-
+  
   SOHRequestedItem:
     type: object
     required:
@@ -291,7 +291,7 @@ definitions:
       DepartmentId:
         type: string
         example: "060"
-
+        
   SOHResponse:
     type: object
     required:
@@ -304,7 +304,7 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/InventoryItem'
-
+  
   InventoryItem:
     type: object
     required:
@@ -349,7 +349,7 @@ definitions:
       SellPrice:
         type: number
         example: 299.96
-
+  
   PriceMatchRequest:
     type: object
     required:
@@ -357,7 +357,7 @@ definitions:
     properties:
       Context:
         $ref: '#/definitions/PriceMatchContext'
-
+  
   PriceMatchContext:
     type: object
     required:
@@ -382,7 +382,7 @@ definitions:
       Brand:
         type: string
         example: "Harvey Norman"
-
+    
   PriceMatchResponse:
     type: object
     required:
@@ -395,7 +395,7 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/PriceMatchCompetitor'
-
+  
   PriceMatchCompetitor:
     type: object
     required:
@@ -424,7 +424,7 @@ definitions:
       QueryBy:
         type: string
         example: "SKU"
-
+        
   ProductSearchResponse:
     type: object
     required:
@@ -437,7 +437,7 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/ProductSearchResult'
-
+  
   ProductSearchResult:
     type: object
     required:
@@ -451,7 +451,7 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/ProductSearchResultItem'
-
+  
   ProductSearchResultItem:
     type: object
     required:
@@ -483,7 +483,7 @@ definitions:
         example: "HP Spectre X360 13-AC001TU 2-in-1 13\" Laptop - Rose Gold"
         description : "Magento name. Optional."
 
-
+  
   ProductInfoResponse:
     type: object
     required:
@@ -494,7 +494,7 @@ definitions:
         $ref: '#/definitions/ResponseHeader'
       Product:
         $ref: '#/definitions/ProductItemInfo'
-
+  
   ProductItemInfo:
     description: "Represent an object with product info. All basic data are derived from SAP data unless prefixed with 'Online' e.g. OnlineName. ExtendedProductData will contain all the online attributes with key value and label."
     type: object
@@ -514,7 +514,7 @@ definitions:
     - Warranty
     - Brand
     - Model
-
+    
     properties:
       BuddyProductKey:
         type: string
@@ -575,8 +575,9 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/ExtendedProductData'
-
+  
   ExtendedProductData:
+    description: "Online attributes"
     type: object
     required:
     - Key
