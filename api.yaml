@@ -146,7 +146,7 @@ paths:
       - application/json
       tags:
       - developers
-      summary: Search Products
+      summary: Search products
       operationId: product_search
       description: |
         Search through products. Query can be SKU, GTIN or product title
