@@ -3,10 +3,8 @@ info:
   description: Buddy API
   version: "1.2.0"
   title: Buddy API
-  # put the contact info for your development or API team
   contact:
     email: hiranmilinda@gmail.com
-
 
 tags:
 - name: admins
@@ -146,7 +144,7 @@ paths:
       - application/json
       tags:
       - developers
-      summary: Search products
+      summary: Search Products
       operationId: product_search
       description: |
         Search through products. Query can be SKU, GTIN or product title
@@ -577,7 +575,6 @@ definitions:
           $ref: '#/definitions/ExtendedProductData'
   
   ExtendedProductData:
-    description: "Online attributes"
     type: object
     required:
     - Key
