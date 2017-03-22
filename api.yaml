@@ -75,6 +75,7 @@ paths:
           description: Incorrect accept header - only application/json at present
         415:
           description: Incorrect content type header - only application/json at present
+  
   /v1/pricematch/competitor/search:
     post:
       consumes: 
@@ -187,7 +188,6 @@ paths:
           description: Unauthorized
         406:
           description: Incorrect accept header - only application/json at present
-  
   /v1/product/{buddy-product-key}:
     get:
       consumes: 
@@ -248,6 +248,8 @@ paths:
           description: Unauthorized
         406:
           description: Incorrect accept header - only application/json at present
+  
+  
   
 definitions:
   ResponseHeader:
