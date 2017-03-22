@@ -217,11 +217,6 @@ paths:
         required: true
         type: string
       - in: header
-        name: Content-Type
-        description: application/json – permanent value stating that associated request payload is being passed in JSON
-        required: true
-        type: string
-      - in: header
         name: Accept
         description: application/json – permanent value stating that representation response needs to be JSON
         required: true
@@ -231,11 +226,6 @@ paths:
         description: Unique product identifier
         required: true
         type: string
-      - in: query
-        name: limit
-        description: How many should be returned
-        required: false
-        type: integer
       responses:
         200:
           description: Return product info
@@ -249,6 +239,7 @@ paths:
         406:
           description: Incorrect accept header - only application/json at present
   
+
   
   
 definitions:
