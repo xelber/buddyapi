@@ -154,9 +154,9 @@ paths:
       - $ref: '#/parameters/AcceptHeader'
       responses:
         200:
-          description: SKU found
+          description: Cart Initiated
           schema:
-            $ref: '#/definitions/SOHResponse'
+            $ref: '#/definitions/Cart'
         400:
           $ref : '#/responses/BadInputResponse'
         404:
@@ -558,7 +558,45 @@ definitions:
       Value:
         type: string
         example: "X94384J"
+        
+  Cart:
+    type: object
+    required:
+    - CartId
+    - Owner
+    - Items
+    properties:
+      CartId:
+        type: string
+        example: "42803280328908"
+      Owner:
+        type: string
+        description: Emplyee ID
+        example: "2323242"
+      Items:
+        type: array
+        items : 
+          $ref : '#/definitions/CartItem'
+  
+  CartItem:
+    type: object
+    required:
+    - Id
+    - Name
+    - SKU
+    properties:
+      Id:
+        type: string
+        example: "42803280328908"
+      Name:
+        type: string
+        description: Emplyee ID
+        example: "2323242"
+      SKU:
+        type: string
+        example: "X94384J"
+  
 # Added by API Auto Mocking Plugin
 #host: virtserver.swaggerhub.com
 host: www-buddy-dev3.dev.hndigital.cloud
-basePath: /
+basePath: /v1/
