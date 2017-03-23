@@ -560,5 +560,5 @@ definitions:
         example: "X94384J"
 # Added by API Auto Mocking Plugin
 #host: virtserver.swaggerhub.com
-host: buddypoc.azure-api.net
+host: http://www-buddy-dev3.dev.hndigital.cloud
 basePath: /
