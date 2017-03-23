@@ -217,12 +217,6 @@ paths:
   
   /v1/cart:
     post:
-      consumes: 
-      - application/json
-      produces:
-      - application/json
-      tags:
-      - developers
       summary: Initiate a cart.
       operationId: cart-init
       description: |
@@ -233,12 +227,6 @@ paths:
       - $ref: '#/parameters/APIVersionHeader'
       - $ref: '#/parameters/ContentTypeHeader'
       - $ref: '#/parameters/AcceptHeader'
-      - in: body
-        name: request
-        description: Application user details used to login to the application
-        required: true
-        schema:
-            $ref: '#/definitions/SOHRequest'
       responses:
         200:
           description: SKU found
