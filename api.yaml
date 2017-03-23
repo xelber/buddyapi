@@ -53,6 +53,8 @@ parameters:
     required: true
     type: string
   
+responses:
+  UnauthorizedResponse: Unauthorized
   
   
 paths:
@@ -195,7 +197,7 @@ paths:
           schema:
             $ref: '#/definitions/ProductInfoResponse'
         400:
-          description: Bad input parameter
+          $ref : '#responses/UnauthorizedResponsed'
         401:
           description: Unauthorized
         406:
