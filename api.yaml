@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   description: Buddy API 1.2
   version: "1.2.0"
-  title: Buddy API
+  title: Buddy API 1.2
   contact:
     email: hiranmilinda@gmail.com
 
