@@ -37,11 +37,11 @@ paths:
           schema:
             $ref: '#/definitions/SOHResponse'
         400:
-          $ref : '#responses/BadInputResponse'
+          $ref : '#/responses/BadInputResponse'
         404:
           $ref : '#/responses/NotFoundResponse'
         401:
-          $ref : '#responses/UnauthorizedResponse'
+          $ref : '#/responses/UnauthorizedResponse'
         406:
           $ref : '#/responses/IncorrectAcceptHeaderResponse'
         415:
