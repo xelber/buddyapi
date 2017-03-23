@@ -61,8 +61,7 @@ paths:
       - developers
       summary: Get stock information for multiple item
       operationId: soh
-      description: |
-        Get the current stock in hand by passing the sku and department ID. Multiples are allowd.
+      description: Get the current stock in hand by passing the sku and department ID. Multiples are allowd.
       parameters:
       - $ref: '#/parameters/AuthorizationHeader'
       - $ref: '#/parameters/RequestIdHeader'
@@ -212,10 +211,10 @@ paths:
       - application/json
       tags:
       - developers
-      summary: Get stock information for multiple item
+      summary: Initiate a cart.
       operationId: cart-init
       description: |
-        Get the current stock in hand by passing the sku and department ID. Multiples are allowd.
+        Create a cart and return a cart ID. Cart owner extracted from Authorization header.
       parameters:
       - $ref: '#/parameters/AuthorizationHeader'
       - $ref: '#/parameters/RequestIdHeader'
