@@ -577,6 +577,10 @@ definitions:
         type: array
         items : 
           $ref : '#/definitions/CartItem'
+      Totals:
+        type: object
+        items : 
+          $ref : '#/definitions/CartTotals'
   
   CartItem:
     type: object
@@ -615,6 +619,30 @@ definitions:
         type: number
         example: 2200.00
       
+  CartTotals:
+    type: object
+    required:
+    - ItemCount
+    - UnitPrice
+    - UnitCost
+    - Discount
+    - LineTotal
+    properties:
+      ItemCount:
+        type: integer
+        example: 1
+      UnitPrice:
+        type: number
+        example: 2500.00
+      UnitCost:
+        type: number
+        example: 1900.00
+      Discount:
+        type: number
+        example: 300.00
+      LineTotal:
+        type: number
+        example: 2200.00
   
 # Added by API Auto Mocking Plugin
 #host: virtserver.swaggerhub.com
