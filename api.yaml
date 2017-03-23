@@ -599,4 +599,4 @@ definitions:
 # Added by API Auto Mocking Plugin
 #host: virtserver.swaggerhub.com
 host: www-buddy-dev3.dev.hndigital.cloud
-basePath: /v1/
+basePath: /v1
