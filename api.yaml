@@ -581,7 +581,7 @@ definitions:
   CartItem:
     type: object
     required:
-    - Id
+    - LineId
     - Name
     - SKU
     - Qty
@@ -590,7 +590,7 @@ definitions:
     - Discount
     - LineTotal
     properties:
-      Id:
+      LineId:
         type: string
         example: "42803280328908"
       Name:
