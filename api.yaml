@@ -7,13 +7,16 @@ info:
     email: hiranmilinda@gmail.com
 
 tags:
-- name: admins
+  - name: admins
   description: Secured Admin-only calls
-- name: developers
+  - name: developers
   description: Operations available to regular developers
 schemes:
-- https
-
+  - https
+consumes: 
+  - application/json
+produces:
+  - application/json
 parameters:
   AuthorizationHeader:
     in: header
@@ -49,7 +52,9 @@ parameters:
     description: application/json – permanent value stating that representation response needs to be JSON
     required: true
     type: string
-    
+  
+  
+  
 paths:
   /v1/soh/inventory/search:
     post:
@@ -169,12 +174,6 @@ paths:
           description: Incorrect accept header - only application/json at present
   /v1/product/{buddy-product-key}:
     get:
-      consumes: 
-      - application/json
-      produces:
-      - application/json
-      tags:
-      - developers
       summary: Get product details
       operationId: product_info
       description: |
@@ -195,7 +194,6 @@ paths:
           description: Return product info
           schema:
             $ref: '#/definitions/ProductInfoResponse'
-              
         400:
           description: Bad input parameter
         401:
@@ -203,7 +201,7 @@ paths:
         406:
           description: Incorrect accept header - only application/json at present
   
-  /v1/cart/init:
+  /v1/cart:
     post:
       consumes: 
       - application/json
