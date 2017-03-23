@@ -578,7 +578,6 @@ definitions:
         items : 
           $ref : '#/definitions/CartItem'
       Totals:
-        type: object
         $ref : '#/definitions/CartTotals'
   
   CartItem:
