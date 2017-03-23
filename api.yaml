@@ -584,17 +584,37 @@ definitions:
     - Id
     - Name
     - SKU
+    - Qty
+    - UnitPrice
+    - UnitCost
+    - Discount
+    - LineTotal
     properties:
       Id:
         type: string
         example: "42803280328908"
       Name:
         type: string
-        description: Emplyee ID
-        example: "2323242"
+        example: "GARMIN FORERUNNER 405 BLACK"
       SKU:
         type: string
-        example: "X94384J"
+        example: "010-00658-24"
+      Qty:
+        type: integer
+        example: 1
+      UnitPrice:
+        type: number
+        example: 2500.00
+      UnitCost:
+        type: number
+        example: 1900.00
+      Discount:
+        type: number
+        example: 300.00
+      LineTotal:
+        type: number
+        example: 2200.00
+      
   
 # Added by API Auto Mocking Plugin
 #host: virtserver.swaggerhub.com
