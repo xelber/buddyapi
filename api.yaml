@@ -6,11 +6,6 @@ info:
   contact:
     email: hiranmilinda@gmail.com
 
-tags:
-  - name: admins
-    description: Secured Admin-only calls
-  - name: developers
-    description: Operations available to regular developers
 schemes:
   - https
 consumes: 
