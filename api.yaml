@@ -591,6 +591,7 @@ definitions:
     - UnitCost
     - Discount
     - LineTotal
+    - LineTax
     properties:
       LineId:
         type: string
@@ -616,31 +617,34 @@ definitions:
       LineTotal:
         type: number
         example: 2200.00
+      LineTax:
+        type: number
+        example: 200.00
       
   CartTotals:
     type: object
     required:
     - ItemCount
-    - UnitPrice
-    - UnitCost
-    - Discount
-    - LineTotal
+    - SubTotal
+    - DiscountTotal
+    - Total
+    - Tax
     properties:
       ItemCount:
         type: integer
         example: 1
-      UnitPrice:
+      SubTotal:
         type: number
         example: 2500.00
-      UnitCost:
+      DiscountTotal:
         type: number
         example: 1900.00
-      Discount:
+      Total:
         type: number
         example: 300.00
-      LineTotal:
+      Tax:
         type: number
-        example: 2200.00
+        example: 200.00
   
 # Added by API Auto Mocking Plugin
 #host: virtserver.swaggerhub.com
