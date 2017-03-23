@@ -69,12 +69,6 @@ responses:
 paths:
   /v1/soh/inventory/search:
     post:
-      consumes: 
-      - application/json
-      produces:
-      - application/json
-      tags:
-      - developers
       summary: Get stock information for multiple item
       operationId: soh
       description: Get the current stock in hand by passing the sku and department ID. Multiples are allowd.
@@ -95,30 +89,22 @@ paths:
           description: SKU found
           schema:
             $ref: '#/definitions/SOHResponse'
-              
         400:
-          description: Bad input parameter
+          $ref : '#responses/BadInputResponse'
         404:
-          description: Item not found
+          $ref : '#/responses/NotFoundResponse'
         401:
-          description: Unauthorized
+          $ref : '#responses/UnauthorizedResponse'
         406:
-          description: Incorrect accept header - only application/json at present
+          $ref : '#/responses/IncorrectAcceptHeaderResponse'
         415:
-          description: Incorrect content type header - only application/json at present
+          $ref : '#/responses/IncorrectContentTypeResponse'
   
   /v1/pricematch/competitor/search:
     post:
-      consumes: 
-      - application/json
-      produces:
-      - application/json
-      tags:
-      - developers
       summary: Get competitor details for price match
       operationId: pricematch
-      description: |
-        Get competitor details for price match
+      description: Get competitor details for price match
       parameters:
       - $ref: '#/parameters/AuthorizationHeader'
       - $ref: '#/parameters/RequestIdHeader'
@@ -136,17 +122,16 @@ paths:
           description: List of competitors matching the context
           schema:
             $ref: '#/definitions/PriceMatchResponse'
-              
         400:
-          description: Bad input parameter
+          $ref : '#responses/BadInputResponse'
         404:
-          description: Item not found
+          $ref : '#/responses/NotFoundResponse'
         401:
-          description: Unauthorized
+          $ref : '#responses/UnauthorizedResponse'
         406:
-          description: Incorrect accept header - only application/json at present
+          $ref : '#/responses/IncorrectAcceptHeaderResponse'
         415:
-          description: Incorrect content type header - only application/json at present
+          $ref : '#/responses/IncorrectContentTypeResponse'
   
   /v1/product/search/{query}:
     get:
