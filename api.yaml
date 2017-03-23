@@ -626,9 +626,10 @@ definitions:
     required:
     - ItemCount
     - SubTotal
-    - DiscountTotal
+    - Discount
     - Total
     - Tax
+    - Cost
     properties:
       ItemCount:
         type: integer
@@ -636,13 +637,16 @@ definitions:
       SubTotal:
         type: number
         example: 2500.00
-      DiscountTotal:
+      Discount:
         type: number
         example: 1900.00
       Total:
         type: number
-        example: 300.00
+        example: 2200.00
       Tax:
+        type: number
+        example: 200.00
+      Cost:
         type: number
         example: 200.00
   
