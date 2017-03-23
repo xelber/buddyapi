@@ -70,11 +70,11 @@ paths:
           schema:
             $ref: '#/definitions/PriceMatchResponse'
         400:
-          $ref : '#responses/BadInputResponse'
+          $ref : '#/responses/BadInputResponse'
         404:
           $ref : '#/responses/NotFoundResponse'
         401:
-          $ref : '#responses/UnauthorizedResponse'
+          $ref : '#/responses/UnauthorizedResponse'
         406:
           $ref : '#/responses/IncorrectAcceptHeaderResponse'
         415:
@@ -103,11 +103,11 @@ paths:
           schema:
             $ref: '#/definitions/ProductSearchResponse'
         400:
-          $ref : '#responses/BadInputResponse'
+          $ref : '#/responses/BadInputResponse'
         404:
           $ref : '#/responses/NotFoundResponse'
         401:
-          $ref : '#responses/UnauthorizedResponse'
+          $ref : '#/responses/UnauthorizedResponse'
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
           
@@ -133,11 +133,11 @@ paths:
           schema:
             $ref: '#/definitions/ProductInfoResponse'
         400:
-          $ref : '#responses/BadInputResponse'
+          $ref : '#/responses/BadInputResponse'
         404:
           $ref : '#/responses/NotFoundResponse'
         401:
-          $ref : '#responses/UnauthorizedResponse'
+          $ref : '#/responses/UnauthorizedResponse'
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
   
@@ -158,11 +158,11 @@ paths:
           schema:
             $ref: '#/definitions/SOHResponse'
         400:
-          $ref : '#responses/BadInputResponse'
+          $ref : '#/responses/BadInputResponse'
         404:
           $ref : '#/responses/NotFoundResponse'
         401:
-          $ref : '#responses/UnauthorizedResponse'
+          $ref : '#/responses/UnauthorizedResponse'
         406:
           $ref : '#/responses/IncorrectAcceptHeaderResponse'
         415:
