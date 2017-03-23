@@ -150,12 +150,6 @@ paths:
   
   /v1/product/search/{query}:
     get:
-      consumes: 
-      - application/json
-      produces:
-      - application/json
-      tags:
-      - developers
       summary: Search Products
       operationId: product_search
       description: |
@@ -176,13 +170,14 @@ paths:
           description: Product Search Results
           schema:
             $ref: '#/definitions/ProductSearchResponse'
-              
         400:
-          description: Bad input parameter
+          $ref : '#responses/BadInputResponse'
+        404:
+          $ref : '#/responses/NotFoundResponse'
         401:
-          description: Unauthorized
-        406:
-          description: Incorrect accept header - only application/json at present
+          $ref : '#responses/UnauthorizedResponse'
+        415:
+          $ref : '#/responses/IncorrectContentTypeResponse'
           
   /v1/product/{buddy-product-key}:
     get:
