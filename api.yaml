@@ -8,9 +8,9 @@ info:
 
 tags:
   - name: admins
-  description: Secured Admin-only calls
+    description: Secured Admin-only calls
   - name: developers
-  description: Operations available to regular developers
+    description: Operations available to regular developers
 schemes:
   - https
 consumes: 
@@ -54,7 +54,16 @@ parameters:
     type: string
   
 responses:
-  UnauthorizedResponse: Unauthorized
+  UnauthorizedResponse: 
+    description: "Unauthorized"
+  BadInputResponse: 
+    description: "Bad input parameter"
+  NotFoundResponse: 
+    description: "Item not found"
+  IncorrectAcceptHeaderResponse: 
+    description: "Incorrect accept header - only application/json at present"
+  IncorrectContentTypeResponse: 
+    description: "Incorrect content type header - only application/json at present"
   
   
 paths:
@@ -174,10 +183,13 @@ paths:
           description: Unauthorized
         406:
           description: Incorrect accept header - only application/json at present
+          
   /v1/product/{buddy-product-key}:
     get:
       summary: Get product details
       operationId: product_info
+      tags:
+      - developers
       description: |
         Get product details for multiple products
       parameters:
@@ -232,17 +244,16 @@ paths:
           description: SKU found
           schema:
             $ref: '#/definitions/SOHResponse'
-              
         400:
-          description: Bad input parameter
+          $ref : '#responses/BadInputResponse'
         404:
-          description: Item not found
+          $ref : '#/responses/NotFoundResponse'
         401:
-          $ref : '#responses/UnauthorizedResponsed'
+          $ref : '#responses/UnauthorizedResponse'
         406:
-          description: Incorrect accept header - only application/json at present
+          $ref : '#/responses/IncorrectAcceptHeaderResponse'
         415:
-          description: Incorrect content type header - only application/json at present
+          $ref : '#/responses/IncorrectContentTypeResponse'
   
   
 definitions:
