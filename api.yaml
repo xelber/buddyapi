@@ -14,7 +14,7 @@ produces:
   - application/json
 
 paths:
-  /v1/soh/inventory/search:
+  /soh/inventory/search:
     post:
       summary: Get stock information for multiple item
       operationId: soh
@@ -47,7 +47,7 @@ paths:
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
   
-  /v1/pricematch/competitor/search:
+  /pricematch/competitor/search:
     post:
       summary: Get competitor details for price match
       operationId: pricematch
@@ -80,7 +80,7 @@ paths:
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
   
-  /v1/product/search/{query}:
+  /product/search/{query}:
     get:
       summary: Search Products
       operationId: product_search
@@ -111,7 +111,7 @@ paths:
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
           
-  /v1/product/{buddy-product-key}:
+  /product/{buddy-product-key}:
     get:
       summary: Get product details
       operationId: product_info
@@ -141,7 +141,7 @@ paths:
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
   
-  /v1/cart:
+  /cart:
     post:
       summary: Initiate a cart.
       operationId: cart-init
