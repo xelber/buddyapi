@@ -188,10 +188,7 @@ paths:
     get:
       summary: Get product details
       operationId: product_info
-      tags:
-      - developers
-      description: |
-        Get product details for multiple products
+      description: Get product details for multiple products
       parameters:
       - $ref: '#/parameters/AuthorizationHeader'
       - $ref: '#/parameters/RequestIdHeader'
@@ -209,18 +206,19 @@ paths:
           schema:
             $ref: '#/definitions/ProductInfoResponse'
         400:
-          description: Bad input parameter
+          $ref : '#responses/BadInputResponse'
+        404:
+          $ref : '#/responses/NotFoundResponse'
         401:
-          description: Unauthorized
-        406:
-          description: Incorrect accept header - only application/json at present
+          $ref : '#responses/UnauthorizedResponse'
+        415:
+          $ref : '#/responses/IncorrectContentTypeResponse'
   
   /v1/cart:
     post:
       summary: Initiate a cart.
       operationId: cart-init
-      description: |
-        Create a cart and return a cart ID. Cart owner extracted from Authorization header.
+      description: Create a cart and return a cart ID. Cart owner extracted from Authorization header.
       parameters:
       - $ref: '#/parameters/AuthorizationHeader'
       - $ref: '#/parameters/RequestIdHeader'
