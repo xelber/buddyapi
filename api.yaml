@@ -116,7 +116,7 @@ paths:
           $ref : '#/responses/UnauthorizedResponse'
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
-          
+  
   /product/{buddy-product-key}:
     get:
       summary: Get product details
@@ -177,7 +177,7 @@ paths:
           $ref : '#/responses/IncorrectAcceptHeaderResponse'
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
-          
+  
   /cart/{cart-id}:
     get:
       summary: Get cart info
@@ -241,7 +241,7 @@ paths:
           $ref : '#/responses/IncorrectAcceptHeaderResponse'
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
-          
+  
   /cart/{cart-id}/item:
     post:
       summary: Add item to a cart.
