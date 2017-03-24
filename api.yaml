@@ -751,8 +751,10 @@ definitions:
         $ref : '#/definitions/CartTotals'
       CraetedDate:
         type: string
+        example: "42803280328908"
       LastUpdatedDate:
         type: string
+        example: "42803280328908"
   
   CartOwner:
     type: object
