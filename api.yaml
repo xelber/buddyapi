@@ -726,6 +726,7 @@ definitions:
     - Name
     - SKU
     - Qty
+    - OriginalUnitPrice
     - UnitPrice
     - UnitCost
     - Discount
@@ -744,6 +745,9 @@ definitions:
       Qty:
         type: integer
         example: 1
+      OriginalUnitPrice:
+        type: number
+        example: 2500.00
       UnitPrice:
         type: number
         example: 2500.00
