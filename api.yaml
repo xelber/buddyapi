@@ -19,6 +19,8 @@ paths:
       summary: Get stock information for multiple item
       operationId: soh
       description: Get the current stock in hand by passing the sku and department ID. Multiples are allowd.
+      tags:
+        - stock
       parameters:
       - $ref: '#/parameters/AuthorizationHeader'
       - $ref: '#/parameters/RequestIdHeader'
@@ -52,6 +54,8 @@ paths:
       summary: Get competitor details for price match
       operationId: pricematch
       description: Get competitor details for price match
+      tags:
+        - pricematch
       parameters:
       - $ref: '#/parameters/AuthorizationHeader'
       - $ref: '#/parameters/RequestIdHeader'
@@ -86,6 +90,8 @@ paths:
       operationId: product_search
       description: |
         Search through products. Query can be SKU, GTIN or product title
+      tags:
+        - product
       parameters:
       - $ref: '#/parameters/AuthorizationHeader'
       - $ref: '#/parameters/RequestIdHeader'
@@ -116,6 +122,8 @@ paths:
       summary: Get product details
       operationId: product_info
       description: Get product details for multiple products
+      tags:
+        - product
       parameters:
       - $ref: '#/parameters/AuthorizationHeader'
       - $ref: '#/parameters/RequestIdHeader'
@@ -146,6 +154,8 @@ paths:
       summary: Initiate a cart.
       operationId: cart-init
       description: Create a cart and return a cart ID. Cart owner extracted from Authorization header.
+      tags:
+        - cart
       parameters:
       - $ref: '#/parameters/AuthorizationHeader'
       - $ref: '#/parameters/RequestIdHeader'
@@ -173,6 +183,8 @@ paths:
       summary: Get cart info
       operationId: cart-info
       description: Request cart info
+      tags:
+        - cart
       parameters:
       - $ref: '#/parameters/AuthorizationHeader'
       - $ref: '#/parameters/RequestIdHeader'
@@ -202,6 +214,8 @@ paths:
       summary: Empty cart
       operationId: cart-delete
       description: Remove all items from cart
+      tags:
+        - cart
       parameters:
       - $ref: '#/parameters/AuthorizationHeader'
       - $ref: '#/parameters/RequestIdHeader'
@@ -233,6 +247,8 @@ paths:
       summary: Add item to a cart.
       operationId: cart-add
       description: Adds the requested item to a given cart.
+      tags:
+        - cart
       parameters:
       - $ref: '#/parameters/AuthorizationHeader'
       - $ref: '#/parameters/RequestIdHeader'
@@ -270,6 +286,8 @@ paths:
       summary: Update item in a cart.
       operationId: cart-item-update
       description: Update requested item in a given cart.
+      tags:
+        - cart
       parameters:
       - $ref: '#/parameters/AuthorizationHeader'
       - $ref: '#/parameters/RequestIdHeader'
@@ -309,6 +327,8 @@ paths:
       summary: Remove item in a cart.
       operationId: cart-item-delete
       description: Remove requested item in a given cart.
+      tags:
+        - cart
       parameters:
       - $ref: '#/parameters/AuthorizationHeader'
       - $ref: '#/parameters/RequestIdHeader'
