@@ -619,7 +619,6 @@ definitions:
         type: string
         example: "HP Spectre X360 13-AC001TU 2-in-1 13\" Laptop - Rose Gold"
         description : "Magento name. Optional."
-
   
   ProductInfoResponse:
     type: object
