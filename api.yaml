@@ -169,9 +169,9 @@ paths:
           $ref : '#/responses/IncorrectContentTypeResponse'
   /cart/{cart-id}:
     get:
-      summary: Get cart info.
+      summary: Get cart info
       operationId: cart-info
-      description: Reuest cart info.
+      description: Reuest cart info
       parameters:
       - $ref: '#/parameters/AuthorizationHeader'
       - $ref: '#/parameters/RequestIdHeader'
