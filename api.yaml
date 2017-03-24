@@ -755,7 +755,7 @@ definitions:
     - CartId
     - Owner
     - Totals
-    - CraetedDate
+    - CreatedDate
     - LastUpdatedDate
     properties:
       CartId:
@@ -769,7 +769,7 @@ definitions:
           $ref : '#/definitions/CartItem'
       Totals:
         $ref : '#/definitions/CartTotals'
-      CraetedDate:
+      CreatedDate:
         type: string
         example: "42803280328908"
       LastUpdatedDate:
