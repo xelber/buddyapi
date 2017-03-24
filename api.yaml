@@ -338,7 +338,7 @@ paths:
           $ref : '#/responses/IncorrectAcceptHeaderResponse'
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
-  
+
 parameters:
   AuthorizationHeader:
     in: header
