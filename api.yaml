@@ -306,6 +306,39 @@ paths:
           $ref : '#/responses/IncorrectAcceptHeaderResponse'
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
+    delete:
+      summary: Remove item in a cart.
+      operationId: cart-item-delete
+      description: Remove requested item in a given cart.
+      parameters:
+      - $ref: '#/parameters/AuthorizationHeader'
+      - $ref: '#/parameters/RequestIdHeader'
+      - $ref: '#/parameters/APIVersionHeader'
+      - $ref: '#/parameters/ContentTypeHeader'
+      - $ref: '#/parameters/AcceptHeader'
+      - in: path
+        name: cart-id
+        required: true
+        type: string
+      - in: path
+        name: cart-item-id
+        required: true
+        type: string
+      responses:
+        200:
+          description: Item Removed
+          schema:
+            $ref: '#/definitions/Cart'
+        400:
+          $ref : '#/responses/BadInputResponse'
+        404:
+          $ref : '#/responses/NotFoundResponse'
+        401:
+          $ref : '#/responses/UnauthorizedResponse'
+        406:
+          $ref : '#/responses/IncorrectAcceptHeaderResponse'
+        415:
+          $ref : '#/responses/IncorrectContentTypeResponse'
   
 parameters:
   AuthorizationHeader:
@@ -732,34 +765,18 @@ definitions:
     - Discount
     - LineTotal
     - LineTax
+    allOf:
+      - $ref: '#/definitions/AddCartItem'
     properties:
       LineId:
         type: string
         example: "42803280328908"
-      Name:
-        type: string
-        example: "GARMIN FORERUNNER 405 BLACK"
-      SKU:
-        type: string
-        example: "010-00658-24"
-      Qty:
-        type: integer
-        example: 1
-      OriginalUnitPrice:
-        type: number
-        example: 2500.00
-      UnitPrice:
-        type: number
-        example: 2500.00
-      UnitCost:
-        type: number
-        example: 1900.00
       Discount:
         type: number
         example: 300.00
       LineTotal:
         type: number
-        example: 2200.00
+        example: 2400.00
       LineTax:
         type: number
         example: 200.00
@@ -786,7 +803,7 @@ definitions:
         example: 1900.00
       Total:
         type: number
-        example: 2200.00
+        example: 2400.00
       Tax:
         type: number
         example: 200.00
@@ -804,6 +821,7 @@ definitions:
     - SKU
     - Qty
     - UnitPrice
+    - OriginalUnitPrice
     - UnitCost
     properties:
       Name:
@@ -815,12 +833,18 @@ definitions:
       Qty:
         type: integer
         example: 1
+      OriginalUnitPrice:
+        type: number
+        example: 2500.00
       UnitPrice:
         type: number
         example: 2500.00
       UnitCost:
         type: number
         example: 1900.00
+      ProductCareCost:
+        type: number
+        example: 200.00
 # Added by API Auto Mocking Plugin
 #host: virtserver.swaggerhub.com
 host: www-buddy-dev3.dev.hndigital.cloud
