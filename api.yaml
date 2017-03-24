@@ -167,11 +167,42 @@ paths:
           $ref : '#/responses/IncorrectAcceptHeaderResponse'
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
+          
   /cart/{cart-id}:
     get:
       summary: Get cart info
       operationId: cart-info
       description: Request cart info
+      parameters:
+      - $ref: '#/parameters/AuthorizationHeader'
+      - $ref: '#/parameters/RequestIdHeader'
+      - $ref: '#/parameters/APIVersionHeader'
+      - $ref: '#/parameters/ContentTypeHeader'
+      - $ref: '#/parameters/AcceptHeader'
+      - in: path
+        name: cart-id
+        required: true
+        type: string
+      responses:
+        200:
+          description: Cart found
+          schema:
+            $ref: '#/definitions/Cart'
+        400:
+          $ref : '#/responses/BadInputResponse'
+        404:
+          $ref : '#/responses/NotFoundResponse'
+        401:
+          $ref : '#/responses/UnauthorizedResponse'
+        406:
+          $ref : '#/responses/IncorrectAcceptHeaderResponse'
+        415:
+          $ref : '#/responses/IncorrectContentTypeResponse'
+          
+    delete:
+      summary: Empty cart
+      operationId: cart-delete
+      description: Remove all items from cart
       parameters:
       - $ref: '#/parameters/AuthorizationHeader'
       - $ref: '#/parameters/RequestIdHeader'
