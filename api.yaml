@@ -735,20 +735,41 @@ definitions:
     - CartId
     - Owner
     - Totals
+    - CraetedDate
+    - LastUpdatedDate
     properties:
       CartId:
         type: string
         example: "42803280328908"
       Owner:
-        type: string
-        description: Emplyee ID
-        example: "2323242"
+        $ref : '#/definitions/CartOwner'
       Items:
         type: array
         items : 
           $ref : '#/definitions/CartItem'
       Totals:
         $ref : '#/definitions/CartTotals'
+      CraetedDate:
+        type: string
+      LastUpdatedDate:
+        type: string
+  
+  CartOwner:
+    type: object
+    required:
+    - SalesPerson
+    - StoreId
+    - DepartmentId
+    properties:
+      SalesPerson:
+        type: string
+        example: "Jo Burn"
+      StoreId:
+        type: string
+        example: "01"
+      DepartmentId:
+        type: string
+        example: "063"
   
   CartItem:
     type: object
