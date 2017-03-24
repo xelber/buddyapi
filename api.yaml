@@ -171,7 +171,7 @@ paths:
     get:
       summary: Get cart info
       operationId: cart-info
-      description: Reuest cart info
+      description: Request cart info
       parameters:
       - $ref: '#/parameters/AuthorizationHeader'
       - $ref: '#/parameters/RequestIdHeader'
