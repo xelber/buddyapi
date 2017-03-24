@@ -766,20 +766,20 @@ definitions:
     - LineTotal
     - LineTax
     allOf:
+      - properties:
+          LineId:
+            type: string
+            example: "42803280328908"
+          Discount:
+            type: number
+            example: 300.00
+          LineTotal:
+            type: number
+            example: 2400.00
+          LineTax:
+            type: number
+            example: 200.00
       - $ref: '#/definitions/AddCartItem'
-    properties:
-      LineId:
-        type: string
-        example: "42803280328908"
-      Discount:
-        type: number
-        example: 300.00
-      LineTotal:
-        type: number
-        example: 2400.00
-      LineTax:
-        type: number
-        example: 200.00
       
   CartTotals:
     type: object
