@@ -167,6 +167,73 @@ paths:
           $ref : '#/responses/IncorrectAcceptHeaderResponse'
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
+  /cart/{cart-id}:
+    get:
+      summary: Get cart info.
+      operationId: cart-info
+      description: Reuest cart info.
+      parameters:
+      - $ref: '#/parameters/AuthorizationHeader'
+      - $ref: '#/parameters/RequestIdHeader'
+      - $ref: '#/parameters/APIVersionHeader'
+      - $ref: '#/parameters/ContentTypeHeader'
+      - $ref: '#/parameters/AcceptHeader'
+      - in: path
+        name: cart-id
+        required: true
+        type: string
+      responses:
+        200:
+          description: Cart found
+          schema:
+            $ref: '#/definitions/Cart'
+        400:
+          $ref : '#/responses/BadInputResponse'
+        404:
+          $ref : '#/responses/NotFoundResponse'
+        401:
+          $ref : '#/responses/UnauthorizedResponse'
+        406:
+          $ref : '#/responses/IncorrectAcceptHeaderResponse'
+        415:
+          $ref : '#/responses/IncorrectContentTypeResponse'
+          
+  /cart/{cart-id}/item:
+    post:
+      summary: Add item to a cart.
+      operationId: cart-add
+      description: Adds the requested item to a given cart.
+      parameters:
+      - $ref: '#/parameters/AuthorizationHeader'
+      - $ref: '#/parameters/RequestIdHeader'
+      - $ref: '#/parameters/APIVersionHeader'
+      - $ref: '#/parameters/ContentTypeHeader'
+      - $ref: '#/parameters/AcceptHeader'
+      - in: path
+        name: cart-id
+        required: true
+        type: string
+      - in: body
+        name: item
+        description: Describe the product needs adding.
+        required: true
+        schema:
+            $ref: '#/definitions/AddCartItem'
+      responses:
+        200:
+          description: Item added to cart
+          schema:
+            $ref: '#/definitions/Cart'
+        400:
+          $ref : '#/responses/BadInputResponse'
+        404:
+          $ref : '#/responses/NotFoundResponse'
+        401:
+          $ref : '#/responses/UnauthorizedResponse'
+        406:
+          $ref : '#/responses/IncorrectAcceptHeaderResponse'
+        415:
+          $ref : '#/responses/IncorrectContentTypeResponse'
   
 parameters:
   AuthorizationHeader:
@@ -653,7 +720,31 @@ definitions:
       Cost:
         type: number
         example: 200.00
-  
+        
+  AddCartItem:
+    type: object
+    required:
+    - Name
+    - SKU
+    - Qty
+    - UnitPrice
+    - UnitCost
+    properties:
+      Name:
+        type: string
+        example: "GARMIN FORERUNNER 405 BLACK"
+      SKU:
+        type: string
+        example: "010-00658-24"
+      Qty:
+        type: integer
+        example: 1
+      UnitPrice:
+        type: number
+        example: 2500.00
+      UnitCost:
+        type: number
+        example: 1900.00
 # Added by API Auto Mocking Plugin
 #host: virtserver.swaggerhub.com
 host: www-buddy-dev3.dev.hndigital.cloud
