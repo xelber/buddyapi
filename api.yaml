@@ -198,7 +198,6 @@ paths:
           $ref : '#/responses/IncorrectAcceptHeaderResponse'
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
-          
     delete:
       summary: Empty cart
       operationId: cart-delete
