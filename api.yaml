@@ -386,7 +386,7 @@ responses:
     description: "Incorrect accept header - only application/json at present"
   IncorrectContentTypeResponse: 
     description: "Incorrect content type header - only application/json at present"
- 
+
 definitions:
   
   ResponseHeader:
