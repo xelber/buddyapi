@@ -266,6 +266,47 @@ paths:
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
   
+  /cart/{cart-id}/item/{cart-item-id}:
+    patch:
+      summary: Update item in a cart.
+      operationId: cart-item-update
+      description: Update requested item in a given cart.
+      parameters:
+      - $ref: '#/parameters/AuthorizationHeader'
+      - $ref: '#/parameters/RequestIdHeader'
+      - $ref: '#/parameters/APIVersionHeader'
+      - $ref: '#/parameters/ContentTypeHeader'
+      - $ref: '#/parameters/AcceptHeader'
+      - in: path
+        name: cart-id
+        required: true
+        type: string
+      - in: path
+        name: cart-item-id
+        required: true
+        type: string
+      - in: body
+        name: item
+        description: Describe the product needs adding.
+        required: true
+        schema:
+            $ref: '#/definitions/AddCartItem'
+      responses:
+        200:
+          description: Item added to cart
+          schema:
+            $ref: '#/definitions/Cart'
+        400:
+          $ref : '#/responses/BadInputResponse'
+        404:
+          $ref : '#/responses/NotFoundResponse'
+        401:
+          $ref : '#/responses/UnauthorizedResponse'
+        406:
+          $ref : '#/responses/IncorrectAcceptHeaderResponse'
+        415:
+          $ref : '#/responses/IncorrectContentTypeResponse'
+  
 parameters:
   AuthorizationHeader:
     in: header
