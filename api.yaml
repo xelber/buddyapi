@@ -775,6 +775,10 @@ definitions:
       LastUpdatedDate:
         type: string
         example: "42803280328908"
+      ExtraInfo:
+        type: array
+        items : 
+          $ref : '#/definitions/GenericKeyValue'
   
   CartOwner:
     type: object
