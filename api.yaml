@@ -765,10 +765,10 @@ definitions:
         $ref : '#/definitions/CartOwner'
       Items:
         type: array
-        items : 
-          $ref : '#/definitions/CartItem'
+        items: 
+          $ref: '#/definitions/CartItem'
       Totals:
-        $ref : '#/definitions/CartTotals'
+        $ref: '#/definitions/CartTotals'
       CreatedDate:
         type: string
         example: "42803280328908"
