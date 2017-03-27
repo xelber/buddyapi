@@ -886,6 +886,20 @@ definitions:
       ProductCareCost:
         type: number
         example: 200.00
+        
+  GenericKeyValue:
+    type: object
+    required:
+    - Key
+    - Value
+    properties:
+      Key:
+        type: string
+        example: "colour_code"
+      Value:
+        type: string
+        example: "Red"
+  
 # Added by API Auto Mocking Plugin
 #host: virtserver.swaggerhub.com
 host: www-buddy-dev3.dev.hndigital.cloud
