@@ -777,8 +777,8 @@ definitions:
         example: "42803280328908"
       ExtraInfo:
         type: array
-        items : 
-          $ref : '#/definitions/GenericKeyValue'
+        items:
+          $ref: '#/definitions/GenericKeyValue'
   
   CartOwner:
     type: object
