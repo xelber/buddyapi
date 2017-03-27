@@ -886,6 +886,10 @@ definitions:
       ProductCareCost:
         type: number
         example: 200.00
+      ExtraInfo:
+        type: array
+        items : 
+          $ref : '#/definitions/GenericKeyValue'
         
   GenericKeyValue:
     type: object
