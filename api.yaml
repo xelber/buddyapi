@@ -244,9 +244,9 @@ paths:
   
   /cart/{cart-id}/item:
     post:
-      summary: Add item to a cart.
+      summary: Add item to a cart
       operationId: cart-add
-      description: Adds the requested item to a given cart.
+      description: Adds the requested item to a given cart
       tags:
         - cart
       parameters:
@@ -283,9 +283,9 @@ paths:
   
   /cart/{cart-id}/item/{cart-item-id}:
     patch:
-      summary: Update item in a cart.
+      summary: Update item in a cart
       operationId: cart-item-update
-      description: Update requested item in a given cart.
+      description: Update requested item in a given cart
       tags:
         - cart
       parameters:
@@ -326,7 +326,7 @@ paths:
     delete:
       summary: Remove item in a cart.
       operationId: cart-item-delete
-      description: Remove requested item in a given cart.
+      description: Remove requested item in a given cart
       tags:
         - cart
       parameters:
