@@ -102,6 +102,10 @@ paths:
         description: Search Query. Needs to be URL encoded. Can be search by name, SKU or GTIN
         required: true
         type: string
+      - in: query
+        name: limit
+        required: false
+        type: integer
         
       responses:
         200:
@@ -324,7 +328,7 @@ paths:
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
     delete:
-      summary: Remove item in a cart.
+      summary: Remove item in a cart
       operationId: cart-item-delete
       description: Remove requested item in a given cart
       tags:
