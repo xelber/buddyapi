@@ -1235,13 +1235,13 @@ definitions:
     type: object
     required:
     - Sku
-    - Description
+    - Terms
     - SellPrice
     properties:
       Sku:
         type: string
         example: "X9032903290"
-      Description:
+      Terms:
         type: string
         example: "12 Months"
       SellPrice:
