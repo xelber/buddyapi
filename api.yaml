@@ -467,7 +467,7 @@ paths:
         name: sku
         required: true
         type: string
-        description: Product SKU
+        description: Product SKU. Base64 encoded.
       - in: query
         name: price
         required: true
