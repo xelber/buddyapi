@@ -524,7 +524,7 @@ paths:
         406:
           $ref : '#/responses/IncorrectAcceptHeaderResponse'
 
-  /productcare/group/{group}/category/{category}/class/{class}/price/{price}:
+  /productcare/hierarchy/{hierarchy}/price/{price}:
     get:
       summary: Get available product care options
       operationId: product-care
@@ -537,20 +537,10 @@ paths:
       - $ref: '#/parameters/APIVersionHeader'
       - $ref: '#/parameters/AcceptHeader'
       - in: path
-        name: group
+        name: hierarchy
         required: true
         type: string
-        description: SAP product group. e.g. HWS (Hot water system)
-      - in: path
-        name: category
-        required: true
-        type: string
-        description: SAP product category. e.g. ELE (Electric)
-      - in: path
-        name: class
-        required: true
-        type: string
-        description: SAP product class. e.g. 010 (25-50 leters)
+        description: SAP product hierarchy excluding company. e.g. 070HWSELE010. {DeptId}{Group}{Category}{Class}
       - in: path
         name: price
         required: true
