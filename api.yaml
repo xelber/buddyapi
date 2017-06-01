@@ -1237,6 +1237,8 @@ definitions:
     - Sku
     - Terms
     - SellPrice
+    - Cost
+    - Commission
     properties:
       Sku:
         type: string
@@ -1247,6 +1249,12 @@ definitions:
       SellPrice:
         type: number
         example: 143.08
+      Cost:
+        type: number
+        example: 75.66
+      Commission:
+        type: number
+        example: 40.44
 
 # Added by API Auto Mocking Plugin
 #host: virtserver.swaggerhub.com
