@@ -1,8 +1,8 @@
 swagger: '2.0'
 info:
-  description: Buddy API 1.2
-  version: "1.2.0"
-  title: Buddy API 1.2
+  description: Buddy API
+  version: "1.5.0"
+  title: Buddy API
   contact:
     email: hiranmilinda@gmail.com
 
@@ -84,7 +84,7 @@ paths:
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
   
-  /product/search/{query}:
+  /product/search:
     get:
       summary: Search Products
       operationId: product_search
@@ -97,9 +97,14 @@ paths:
       - $ref: '#/parameters/RequestIdHeader'
       - $ref: '#/parameters/APIVersionHeader'
       - $ref: '#/parameters/AcceptHeader'
-      - in: path
+      - in: query
         name: query
         description: Search Query. Needs to be URL encoded. Can be search by name, SKU or GTIN
+        required: true
+        type: string
+      - in: query
+        name: dept
+        description: Department IDs to limit the search to(comma separated). eg. 060,062
         required: true
         type: string
       - in: query
@@ -156,9 +161,9 @@ paths:
   
   /cart:
     post:
-      summary: Initiate a cart.
+      summary: Initiate a cart
       operationId: cart-init
-      description: Create a cart and return a cart ID. Cart owner extracted from Authorization header.
+      description: Create a cart and return a cart ID
       tags:
         - cart
       parameters:
@@ -167,15 +172,19 @@ paths:
       - $ref: '#/parameters/APIVersionHeader'
       - $ref: '#/parameters/ContentTypeHeader'
       - $ref: '#/parameters/AcceptHeader'
+      - in: body
+        name: cart
+        description: Describe basic cart info.
+        required: true
+        schema:
+            $ref: '#/definitions/CreateCart'
       responses:
         200:
           description: Cart Initiated
           schema:
-            $ref: '#/definitions/Cart'
+            $ref: '#/definitions/CartResponse'
         400:
           $ref : '#/responses/BadInputResponse'
-        404:
-          $ref : '#/responses/NotFoundResponse'
         401:
           $ref : '#/responses/UnauthorizedResponse'
         406:
@@ -204,7 +213,7 @@ paths:
         200:
           description: Cart found
           schema:
-            $ref: '#/definitions/Cart'
+            $ref: '#/definitions/CartResponse'
         400:
           $ref : '#/responses/BadInputResponse'
         404:
@@ -215,6 +224,7 @@ paths:
           $ref : '#/responses/IncorrectAcceptHeaderResponse'
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
+
     delete:
       summary: Empty cart
       operationId: cart-delete
@@ -235,7 +245,40 @@ paths:
         200:
           description: Cart found
           schema:
-            $ref: '#/definitions/Cart'
+            $ref: '#/definitions/CartResponse'
+        400:
+          $ref : '#/responses/BadInputResponse'
+        404:
+          $ref : '#/responses/NotFoundResponse'
+        401:
+          $ref : '#/responses/UnauthorizedResponse'
+        406:
+          $ref : '#/responses/IncorrectAcceptHeaderResponse'
+        415:
+          $ref : '#/responses/IncorrectContentTypeResponse'
+  
+  /cart/{cart-id}/discount:
+    delete:
+      summary: Clear cart discounts
+      operationId: cart-clear-discount
+      description: Clear cart discounts
+      tags:
+        - cart
+      parameters:
+      - $ref: '#/parameters/AuthorizationHeader'
+      - $ref: '#/parameters/RequestIdHeader'
+      - $ref: '#/parameters/APIVersionHeader'
+      - $ref: '#/parameters/ContentTypeHeader'
+      - $ref: '#/parameters/AcceptHeader'
+      - in: path
+        name: cart-id
+        required: true
+        type: string
+      responses:
+        200:
+          description: Cart found and discounts removed
+          schema:
+            $ref: '#/definitions/CartResponse'
         400:
           $ref : '#/responses/BadInputResponse'
         404:
@@ -274,11 +317,9 @@ paths:
         200:
           description: Item added to cart
           schema:
-            $ref: '#/definitions/Cart'
+            $ref: '#/definitions/CartResponse'
         400:
           $ref : '#/responses/BadInputResponse'
-        404:
-          $ref : '#/responses/NotFoundResponse'
         401:
           $ref : '#/responses/UnauthorizedResponse'
         406:
@@ -287,7 +328,7 @@ paths:
           $ref : '#/responses/IncorrectContentTypeResponse'
   
   /cart/{cart-id}/item/{cart-item-id}:
-    patch:
+    put:
       summary: Update item in a cart
       operationId: cart-item-update
       description: Update requested item in a given cart
@@ -309,15 +350,15 @@ paths:
         type: string
       - in: body
         name: item
-        description: Describe the product needs adding.
+        description: Describe the item attributes needs updating.
         required: true
         schema:
-            $ref: '#/definitions/AddCartItem'
+            $ref: '#/definitions/UpdateCartItem'
       responses:
         200:
-          description: Item added to cart
+          description: Item updated successfully
           schema:
-            $ref: '#/definitions/Cart'
+            $ref: '#/definitions/CartResponse'
         400:
           $ref : '#/responses/BadInputResponse'
         404:
@@ -363,19 +404,185 @@ paths:
           $ref : '#/responses/IncorrectAcceptHeaderResponse'
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
+  
+  /cart/{cart-id}/item/{cart-item-id}/bonus:
+    post:
+      summary: Mark item as bonus
+      operationId: cart-item-bonus-mark
+      description: Mark item as bonus
+      tags:
+        - cart
+      parameters:
+      - $ref: '#/parameters/AuthorizationHeader'
+      - $ref: '#/parameters/RequestIdHeader'
+      - $ref: '#/parameters/APIVersionHeader'
+      - $ref: '#/parameters/ContentTypeHeader'
+      - $ref: '#/parameters/AcceptHeader'
+      - in: path
+        name: cart-id
+        required: true
+        type: string
+      - in: path
+        name: cart-item-id
+        required: true
+        type: string
+      responses:
+        200:
+          description: Item updated successfully
+          schema:
+            $ref: '#/definitions/CartResponse'
+        400:
+          $ref : '#/responses/BadInputResponse'
+        404:
+          $ref : '#/responses/NotFoundResponse'
+        401:
+          $ref : '#/responses/UnauthorizedResponse'
+        406:
+          $ref : '#/responses/IncorrectAcceptHeaderResponse'
+        415:
+          $ref : '#/responses/IncorrectContentTypeResponse'
+    delete:
+      summary: Remove bonus
+      operationId: cart-item-bonus-unmark
+      description: Remove bonus
+      tags:
+        - cart
+      parameters:
+      - $ref: '#/parameters/AuthorizationHeader'
+      - $ref: '#/parameters/RequestIdHeader'
+      - $ref: '#/parameters/APIVersionHeader'
+      - $ref: '#/parameters/ContentTypeHeader'
+      - $ref: '#/parameters/AcceptHeader'
+      - in: path
+        name: cart-id
+        required: true
+        type: string
+      - in: path
+        name: cart-item-id
+        required: true
+        type: string
+      responses:
+        200:
+          description: Item reverted to oirignal price
+          schema:
+            $ref: '#/definitions/Cart'
+        400:
+          $ref : '#/responses/BadInputResponse'
+        404:
+          $ref : '#/responses/NotFoundResponse'
+        401:
+          $ref : '#/responses/UnauthorizedResponse'
+        406:
+          $ref : '#/responses/IncorrectAcceptHeaderResponse'
+        415:
+          $ref : '#/responses/IncorrectContentTypeResponse'
+  
+  /pricing/{corp-channel}/dept/{dept-id}/sku/{sku}:
+    get:
+      summary: Get pricing details
+      operationId: pricing-calculator
+      description: Get pricing details by passing the selling price, will return commission as well.
+      tags:
+        - pricing
+      parameters:
+      - $ref: '#/parameters/AuthorizationHeader'
+      - $ref: '#/parameters/RequestIdHeader'
+      - $ref: '#/parameters/APIVersionHeader'
+      - $ref: '#/parameters/AcceptHeader'
+      - in: path
+        name: corp-channel
+        required: true
+        type: string
+        description: Corp channel
+      - in: path
+        name: dept-id
+        required: true
+        type: string
+        description: Department ID
+      - in: path
+        name: sku
+        required: true
+        type: string
+        description: Product SKU
+      - in: query
+        name: price
+        required: true
+        type: number
+        description: Sell price
+        
+      responses:
+        200:
+          description: Service Located, item found and valid calculation received
+          schema:
+            $ref: '#/definitions/PricingCalculatorResponse'
+        400:
+          $ref : '#/responses/BadInputResponse'
+        404:
+          $ref : '#/responses/NotFoundResponse'
+        401:
+          $ref : '#/responses/UnauthorizedResponse'
+        406:
+          $ref : '#/responses/IncorrectAcceptHeaderResponse'
 
+  /productcare/group/{group}/category/{category}/class/{class}/price/{price}:
+    get:
+      summary: Get available product care options
+      operationId: product-care
+      description: Get available product care options.
+      tags:
+        - product-care
+      parameters:
+      - $ref: '#/parameters/AuthorizationHeader'
+      - $ref: '#/parameters/RequestIdHeader'
+      - $ref: '#/parameters/APIVersionHeader'
+      - $ref: '#/parameters/AcceptHeader'
+      - in: path
+        name: group
+        required: true
+        type: string
+        description: SAP product group. e.g. HWS (Hot water system)
+      - in: path
+        name: category
+        required: true
+        type: string
+        description: SAP product category. e.g. ELE (Electric)
+      - in: path
+        name: class
+        required: true
+        type: string
+        description: SAP product class. e.g. 010 (25-50 leters)
+      - in: path
+        name: price
+        required: true
+        type: string
+        description: Sell price
+        
+      responses:
+        200:
+          description: Product care exist
+          schema:
+            $ref: '#/definitions/ProductCareResponse'
+        400:
+          $ref : '#/responses/BadInputResponse'
+        404:
+          $ref : '#/responses/NotFoundResponse'
+        401:
+          $ref : '#/responses/UnauthorizedResponse'
+        406:
+          $ref : '#/responses/IncorrectAcceptHeaderResponse'
+          
 parameters:
   AuthorizationHeader:
     in: header
     name: Authorization
-    description: "\"Authorization: <API Key>\" API System Key identifies the Service making this specific request."
+    description: JWT token acquired while login
     required: true
     type: string
     
   RequestIdHeader:
     in: header
     name: X-Request-ID
-    description: SessionUUID generated by the Initiating Consumer System per request – allows end-end tracking & auditing
+    description: Session UUID generated by the Initiating Consumer System per request – allows end-end tracking & auditing
     required: true
     type: string
   
@@ -435,7 +642,11 @@ definitions:
     type: object
     required:
     - Items
+    - StoreId
     properties:
+      StoreId:
+        type: string
+        example: "047"
       Items:
         type: array
         items:
@@ -453,7 +664,7 @@ definitions:
       DepartmentId:
         type: string
         example: "060"
-        
+  
   SOHResponse:
     type: object
     required:
@@ -544,7 +755,7 @@ definitions:
       Brand:
         type: string
         example: "Harvey Norman"
-    
+  
   PriceMatchResponse:
     type: object
     required:
@@ -586,7 +797,7 @@ definitions:
       QueryBy:
         type: string
         example: "SKU"
-        
+  
   ProductSearchResponse:
     type: object
     required:
@@ -640,6 +851,9 @@ definitions:
       SellPrice:
         type: number
         example: 299.96
+      OnlinePrice:
+        type: number
+        example: 299.96
       OnlineName:
         type: string
         example: "HP Spectre X360 13-AC001TU 2-in-1 13\" Laptop - Rose Gold"
@@ -670,11 +884,11 @@ definitions:
     - Group
     - Class
     - SupplierId
-    - SellPrice
-    - CostPrice
     - Warranty
     - Brand
     - Model
+    - TaxPercentage
+    - SellPrice
     
     properties:
       BuddyProductKey:
@@ -708,10 +922,13 @@ definitions:
       SupplierId:
         type: string
         example: "300161"
+      TaxPercentage:
+        type: number
+        example: 10.00
       SellPrice:
         type: number
         example: 299.96
-      CostPrice:
+      OnlinePrice:
         type: number
         example: 299.96
       Warranty:
@@ -726,6 +943,16 @@ definitions:
       OnlineName:
         type: string
         example: "HP Spectre X360 13-AC001TU 2-in-1 13\" Laptop - Rose Gold"
+      CountryOfOrigin:
+        type: string
+        example: "New Zeland"
+      ExtendedWarrantyFlag:
+        type: boolean
+        example: true
+      ProductInactiveDate:
+        type: string
+        example: "2016-10-28"
+        description: "Date in format YYYY-MM-DD"
       OnlineImageUrl:
         type: string
         example: "https://doxz7msmg7sxx.cloudfront.net/media/catalog/product/cache/21/image/992x558/9df78eab33525d08d6e5fb8d27136e95/s/p/spectre_x360_1.jpg"
@@ -753,11 +980,35 @@ definitions:
       Value:
         type: string
         example: "X94384J"
-        
+  
+  CreateCart:
+    type: object
+    required:
+    - CurrencyCode
+    - Owner
+    properties:
+      CurrencyCode:
+        type: string
+        example: "AUD"
+      Owner:
+        $ref : '#/definitions/CartOwner'
+  
+  CartResponse:
+    type: object
+    required:
+    - ResponseHeader
+    - Cart
+    properties:
+      ResponseHeader:
+        $ref: '#/definitions/ResponseHeader'
+      Cart:
+        $ref: '#/definitions/Cart'
+  
   Cart:
     type: object
     required:
     - CartId
+    - CurrencyCode
     - Owner
     - Totals
     - CreatedDate
@@ -765,7 +1016,11 @@ definitions:
     properties:
       CartId:
         type: string
-        example: "42803280328908"
+        example: "70537a62-afb0-4fff-828a-57eae60b2b06"
+        format: uuid
+      CurrencyCode:
+        type: string
+        example: "AUD"
       Owner:
         $ref : '#/definitions/CartOwner'
       Items:
@@ -776,31 +1031,32 @@ definitions:
         $ref: '#/definitions/CartTotals'
       CreatedDate:
         type: string
-        example: "42803280328908"
+        example: "2017-04-20 23:04:31"
       LastUpdatedDate:
         type: string
-        example: "42803280328908"
-      ExtraInfo:
-        type: array
-        items:
-          $ref: '#/definitions/GenericKeyValue'
+        example: "2017-04-20 23:20:28"
   
   CartOwner:
     type: object
     required:
     - SalesPerson
+    - SalesPersonId
     - StoreId
-    - DepartmentId
+    - CorpChannel
     properties:
       SalesPerson:
         type: string
         example: "Jo Burn"
+      SalesPersonId:
+        type: string
+        example: "78373823792"
       StoreId:
         type: string
         example: "01"
-      DepartmentId:
+      CorpChannel:
         type: string
-        example: "063"
+        example: "206fae7e-26f3-465e-b0b0-1b0b2990191f"
+        format: uuid
   
   CartItem:
     type: object
@@ -809,110 +1065,222 @@ definitions:
     - Name
     - SKU
     - Qty
-    - OriginalUnitPrice
-    - UnitPrice
+    - SellPrice
+    - NegotiatedPrice
+    - Saved
     - UnitCost
-    - Discount
     - LineTotal
-    - LineTax
+    - LineCommission
+    - Bonus
     allOf:
       - properties:
           LineId:
             type: string
-            example: "42803280328908"
-          Discount:
-            type: number
-            example: 300.00
+            example: "f74b6f2a-eaef-43c1-9b71-4ac331cb41ac"
+            format: uuid
           LineTotal:
             type: number
             example: 2400.00
-          LineTax:
+          LineCommission:
+            type: number
+            example: 240.00
+          Saved:
             type: number
             example: 200.00
+          Bonus:
+            type: boolean
+            example: false
+          ProductCareOptions:
+            type: array
+            items:
+              $ref: '#/definitions/ProductCareOptions'
       - $ref: '#/definitions/AddCartItem'
-      
+  
   CartTotals:
     type: object
     required:
     - ItemCount
-    - SubTotal
-    - Discount
     - Total
-    - Tax
     - Cost
-    - TaxPercentage
+    - Commission
+    - Saved
     properties:
       ItemCount:
         type: integer
         example: 1
-      SubTotal:
-        type: number
-        example: 2500.00
-      Discount:
-        type: number
-        example: 1900.00
       Total:
         type: number
         example: 2400.00
-      Tax:
-        type: number
-        example: 200.00
-      TaxPercentage:
-        type: number
-        example: 200.00
       Cost:
         type: number
         example: 200.00
-        
+      Commission:
+        type: number
+        example: 240.00
+      Saved:
+        type: number
+        example: 200.00
+  
   AddCartItem:
     type: object
     required:
+    - Type
     - Name
     - SKU
     - Qty
-    - UnitPrice
-    - OriginalUnitPrice
-    - UnitCost
+    - NegotiatedPrice
     properties:
+      Type:
+        type: string
+        enum : ['PRODUCT','SERVICE','DELIVERY', 'DISCOUNT', 'BONUS']
+      ParentLineId:
+        type: string
+        example: "f74b6f2a-eaef-43c1-9b71-4ac331cb41ac"
+        format: uuid
       Name:
         type: string
         example: "GARMIN FORERUNNER 405 BLACK"
       SKU:
         type: string
         example: "010-00658-24"
+      DeptId:
+        type: string
+        example: "060"
+      Group:
+        type: string
+        example: "HWS"
+        description: "SAP Product group"
+      Category:
+        type: string
+        example: "ELE"
+        description: "SAP Product category"
+      Class:
+        type: string
+        example: "010"
+        description: "SAP Product class"
       Qty:
         type: integer
         example: 1
-      OriginalUnitPrice:
+      SellPrice:
         type: number
         example: 2500.00
-      UnitPrice:
+      NegotiatedPrice:
         type: number
-        example: 2500.00
+        example: 2200.00
       UnitCost:
         type: number
         example: 1900.00
-      ProductCareCost:
+      ExtendedWarrantyFlag:
+        type: boolean
+        example: true
+  
+  UpdateCartItem:
+    type: object
+    properties:
+      Qty:
+        type: integer
+        example: 1
+      NegotiatedPrice:
+        type: number
+        example: 2500.00
+      Commission:
         type: number
         example: 200.00
-      ExtraInfo:
-        type: array
-        items : 
-          $ref : '#/definitions/GenericKeyValue'
-        
-  GenericKeyValue:
+  
+  PricingCalculatorResponse:
     type: object
     required:
-    - Key
-    - Value
+    - ResponseHeader
+    - Pricing
     properties:
-      Key:
-        type: string
-        example: "colour_code"
-      Value:
-        type: string
-        example: "Red"
+      ResponseHeader:
+        $ref: '#/definitions/ResponseHeader'
+      Pricing:
+        $ref: '#/definitions/PricingCalculator'
   
+  PricingCalculator:
+    type: object
+    required:
+    - SellPriceExTax
+    - FloorCostExTax
+    - FloorCostIncTax
+    - FloorCostPercent
+    - TotalRebates
+    - Margin
+    - MarginPercent
+    - NetProfit
+    - NetPercent
+    - Commission
+    - TotalCommission
+    - IncentiveVoucherAmount
+    properties:
+      SellPriceExTax:
+        type: number
+        example: 1909.31
+      FloorCostExTax:
+        type: number
+        example: 1909.31
+      FloorCostIncTax:
+        type: number
+        example: 1909.31
+      FloorCostPercent:
+        type: number
+        example: 1909.31
+      TotalRebates:
+        type: number
+        example: 200.00
+      Margin:
+        type: number
+        example: 1430.77
+      MarginPercent:
+        type: number
+        example: 298.99
+      NetProfit:
+        type: number
+        example: 1430.77
+      NetPercent:
+        type: number
+        example: 74.94
+      Commission:
+        type: number
+        example: 143.08
+      TotalCommission:
+        type: number
+        example: 143.08
+      IncentiveVoucherAmount:
+        type: number
+        example: 143.08
+  
+  ProductCareResponse:
+    type: object
+    required:
+    - ResponseHeader
+    - ProductCareOptions
+    properties:
+      ResponseHeader:
+        $ref: '#/definitions/ResponseHeader'
+      ProductCareOptions:
+        type: array
+        items:
+          $ref: '#/definitions/ProductCareOptions'
+  
+  ProductCareOptions:
+    type: object
+    required:
+    - Sku
+    - Description
+    - SellPrice
+    properties:
+      Sku:
+        type: string
+        example: "X9032903290"
+      Description:
+        type: string
+        example: "12 Months"
+      SellPrice:
+        type: number
+        example: 143.08
+
 # Added by API Auto Mocking Plugin
 #host: virtserver.swaggerhub.com
 host: www-buddy-dev3.dev.hndigital.cloud
