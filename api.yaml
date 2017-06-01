@@ -488,7 +488,7 @@ paths:
         406:
           $ref : '#/responses/IncorrectAcceptHeaderResponse'
 
-  /productcare/hierarchy/{hierarchy}/price/{price}:
+  /productcare/hierarchy/{hierarchy}:
     get:
       summary: Get available product care options
       operationId: product-care
@@ -505,7 +505,7 @@ paths:
         required: true
         type: string
         description: SAP product hierarchy excluding company. e.g. 070HWSELE010. {DeptId}{Group}{Category}{Class}
-      - in: path
+      - in: query
         name: price
         required: true
         type: number
