@@ -468,11 +468,7 @@ paths:
         required: true
         type: string
         description: Product SKU. Base64 encoded.
-      - in: query
-        name: price
-        required: true
-        type: number
-        description: Sell price
+      - $ref: '#/parameters/PriceQueryParam'
         
       responses:
         200:
@@ -505,11 +501,7 @@ paths:
         required: true
         type: string
         description: SAP product hierarchy excluding company. e.g. 070HWSELE010. {DeptId}{Group}{Category}{Class}
-      - in: query
-        name: price
-        required: true
-        type: number
-        description: Sell price
+      - $ref: '#/parameters/PriceQueryParam'
         
       responses:
         200:
@@ -574,6 +566,13 @@ parameters:
     required: true
     type: string
     description: uuid identifying cart item.
+  
+  PriceQueryParam:
+    in: query
+    name: price
+    required: true
+    type: number
+    description: Sell price
 
 responses:
   UnauthorizedResponse: 
