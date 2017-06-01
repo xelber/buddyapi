@@ -205,10 +205,7 @@ paths:
       - $ref: '#/parameters/APIVersionHeader'
       - $ref: '#/parameters/ContentTypeHeader'
       - $ref: '#/parameters/AcceptHeader'
-      - in: path
-        name: cart-id
-        required: true
-        type: string
+      - $ref: '#/parameters/CartIdPathParam'
       responses:
         200:
           description: Cart found
@@ -237,10 +234,7 @@ paths:
       - $ref: '#/parameters/APIVersionHeader'
       - $ref: '#/parameters/ContentTypeHeader'
       - $ref: '#/parameters/AcceptHeader'
-      - in: path
-        name: cart-id
-        required: true
-        type: string
+      - $ref: '#/parameters/CartIdPathParam'
       responses:
         200:
           description: Cart found
@@ -270,10 +264,7 @@ paths:
       - $ref: '#/parameters/APIVersionHeader'
       - $ref: '#/parameters/ContentTypeHeader'
       - $ref: '#/parameters/AcceptHeader'
-      - in: path
-        name: cart-id
-        required: true
-        type: string
+      - $ref: '#/parameters/CartIdPathParam'
       responses:
         200:
           description: Cart found and discounts removed
@@ -303,10 +294,7 @@ paths:
       - $ref: '#/parameters/APIVersionHeader'
       - $ref: '#/parameters/ContentTypeHeader'
       - $ref: '#/parameters/AcceptHeader'
-      - in: path
-        name: cart-id
-        required: true
-        type: string
+      - $ref: '#/parameters/CartIdPathParam'
       - in: body
         name: item
         description: Describe the product needs adding.
@@ -340,14 +328,8 @@ paths:
       - $ref: '#/parameters/APIVersionHeader'
       - $ref: '#/parameters/ContentTypeHeader'
       - $ref: '#/parameters/AcceptHeader'
-      - in: path
-        name: cart-id
-        required: true
-        type: string
-      - in: path
-        name: cart-item-id
-        required: true
-        type: string
+      - $ref: '#/parameters/CartIdPathParam'
+      - $ref: '#/parameters/CartItemIdPathParam'
       - in: body
         name: item
         description: Describe the item attributes needs updating.
@@ -381,14 +363,8 @@ paths:
       - $ref: '#/parameters/APIVersionHeader'
       - $ref: '#/parameters/ContentTypeHeader'
       - $ref: '#/parameters/AcceptHeader'
-      - in: path
-        name: cart-id
-        required: true
-        type: string
-      - in: path
-        name: cart-item-id
-        required: true
-        type: string
+      - $ref: '#/parameters/CartIdPathParam'
+      - $ref: '#/parameters/CartItemIdPathParam'
       responses:
         200:
           description: Item Removed
@@ -418,14 +394,8 @@ paths:
       - $ref: '#/parameters/APIVersionHeader'
       - $ref: '#/parameters/ContentTypeHeader'
       - $ref: '#/parameters/AcceptHeader'
-      - in: path
-        name: cart-id
-        required: true
-        type: string
-      - in: path
-        name: cart-item-id
-        required: true
-        type: string
+      - $ref: '#/parameters/CartIdPathParam'
+      - $ref: '#/parameters/CartItemIdPathParam'
       responses:
         200:
           description: Item updated successfully
@@ -453,14 +423,8 @@ paths:
       - $ref: '#/parameters/APIVersionHeader'
       - $ref: '#/parameters/ContentTypeHeader'
       - $ref: '#/parameters/AcceptHeader'
-      - in: path
-        name: cart-id
-        required: true
-        type: string
-      - in: path
-        name: cart-item-id
-        required: true
-        type: string
+      - $ref: '#/parameters/CartIdPathParam'
+      - $ref: '#/parameters/CartItemIdPathParam'
       responses:
         200:
           description: Item reverted to oirignal price
@@ -596,6 +560,20 @@ parameters:
     description: application/json – permanent value stating that representation response needs to be JSON
     required: true
     type: string
+  
+  CartIdPathParam:
+    in: path
+    name: cart-id
+    required: true
+    type: string
+    description: uuid identifying cart.
+  
+  CartItemIdPathParam:
+    in: path
+    name: cart-item-id
+    required: true
+    type: string
+    description: uuid identifying cart item.
 
 responses:
   UnauthorizedResponse: 
