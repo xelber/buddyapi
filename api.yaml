@@ -508,7 +508,7 @@ paths:
       - in: path
         name: price
         required: true
-        type: string
+        type: number
         description: Sell price
         
       responses:
