@@ -1240,7 +1240,7 @@ definitions:
     properties:
       Sku:
         type: string
-        example: "X9032903290"
+        example: "01034HDGD_3_FX"
       Terms:
         type: string
         example: "12 Months"
