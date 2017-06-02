@@ -1137,9 +1137,14 @@ definitions:
       UnitCost:
         type: number
         example: 1900.00
+      Warranty:
+        type: string
+        example: "12 Months"
       ExtendedWarrantyFlag:
         type: boolean
         example: true
+        
+        
   
   UpdateCartItem:
     type: object
