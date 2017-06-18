@@ -1173,6 +1173,9 @@ definitions:
   PricingCalculator:
     type: object
     required:
+    - CorpChannel
+    - DepartmentId
+    - Sku
     - SellPriceExTax
     - FloorCostExTax
     - FloorCostIncTax
@@ -1186,6 +1189,16 @@ definitions:
     - TotalCommission
     - IncentiveVoucherAmount
     properties:
+      CorpChannel:
+        type: string
+        example: "f74b6f2a-eaef-43c1-9b71-4ac331cb41ac"
+        format: uuid
+      Sku:
+        type: string
+        example: "X88034804"
+      DepartmentId:
+        type: string
+        example: "060"
       SellPriceExTax:
         type: number
         example: 1909.31
