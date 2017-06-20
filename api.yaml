@@ -1139,8 +1139,8 @@ definitions:
         type: number
         example: 1900.00
       Warranty:
-        type: string
-        example: "12 Months"
+        type: number
+        example: 12
       ExtendedWarrantyFlag:
         type: boolean
         example: true
