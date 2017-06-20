@@ -899,8 +899,9 @@ definitions:
         type: number
         example: 299.96
       Warranty:
-        type: string
-        example: "12 Months"
+        type: number
+        example: 12
+        description: "Warranty in months"
       Brand:
         type: string
         example: "HP"
