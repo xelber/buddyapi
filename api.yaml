@@ -789,6 +789,8 @@ definitions:
     - ResultCount
     - SearchResult
     properties:
+      Links:
+        $ref: '#/definitions/Links'
       ResultCount:
         type: integer
         example: 55
@@ -801,6 +803,25 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/ProductSearchResultItem'
+  
+  Links : 
+    type: object
+    required: 
+    - Self
+    properties:
+      Next:
+        type: string
+        format: url
+        example: "/search/result/?q=lg&limit=10&start=41"
+      Prev:
+        type: string
+        format: url
+        example: "/search/result/?q=lg&limit=10&start=21"
+      Self:
+        type: string
+        format: url
+        example: "/search/result/?q=lg&limit=10&start=31"
+      
   
   ProductSearchResultItem:
     type: object
