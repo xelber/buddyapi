@@ -821,7 +821,6 @@ definitions:
         type: string
         format: url
         example: "/search/result/?q=lg&limit=10&start=31"
-      
   
   ProductSearchResultItem:
     type: object
