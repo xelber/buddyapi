@@ -1174,8 +1174,6 @@ definitions:
       ExtendedWarrantyFlag:
         type: boolean
         example: true
-        
-        
   
   UpdateCartItem:
     type: object
