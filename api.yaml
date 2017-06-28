@@ -112,6 +112,11 @@ paths:
         description: How many results to be returned. Subjected to an upper limit in service.
         required: false
         type: integer
+      - in: query
+        name: start
+        description: Results start from. Defaults to zero.
+        required: false
+        type: integer
         
       responses:
         200:
@@ -786,7 +791,12 @@ definitions:
     properties:
       ResultCount:
         type: integer
-        example: 8
+        example: 55
+        description: Total result count without limit
+      Limit:
+        type: integer
+        example: 10
+        description: Max of limit sent or system default
       SearchResult:
         type: array
         items:
