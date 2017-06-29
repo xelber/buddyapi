@@ -818,15 +818,15 @@ definitions:
       Next:
         type: string
         format: url
-        example: "/search/result/?q=lg&limit=10&start=41"
+        example: "http://example.com/result/?q=lg&limit=10&start=41"
       Prev:
         type: string
         format: url
-        example: "/search/result/?q=lg&limit=10&start=21"
+        example: "http://example.com/result/?q=lg&limit=10&start=21"
       Self:
         type: string
         format: url
-        example: "/search/result/?q=lg&limit=10&start=31"
+        example: "http://example.com/result/?q=lg&limit=10&start=31"
   
   ProductSearchResultItem:
     type: object
