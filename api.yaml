@@ -803,7 +803,7 @@ definitions:
         description: Max of limit sent or system default
       Start:
         type: integer
-        example: 10
+        example: 11
         description: Results start from
       SearchResult:
         type: array
