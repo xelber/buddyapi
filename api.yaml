@@ -788,6 +788,8 @@ definitions:
     required:
     - ResultCount
     - SearchResult
+    - Limit
+    - Start
     properties:
       Links:
         $ref: '#/definitions/Links'
@@ -799,6 +801,10 @@ definitions:
         type: integer
         example: 10
         description: Max of limit sent or system default
+      Start:
+        type: integer
+        example: 10
+        description: Results start from
       SearchResult:
         type: array
         items:
