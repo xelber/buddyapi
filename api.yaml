@@ -1339,7 +1339,7 @@ definitions:
         example: "01034HDGD_3_FX"
       Terms:
         type: string
-        example: "12 Months"
+        example: "12"
       SellPrice:
         type: number
         example: 143.08
