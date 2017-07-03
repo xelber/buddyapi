@@ -522,6 +522,43 @@ paths:
         406:
           $ref : '#/responses/IncorrectAcceptHeaderResponse'
 
+  /cart/{cart-id}/pos:
+    post:
+      summary: Create pos order
+      operationId: cart-pos-create
+      description: Send order to pos
+      tags:
+        - cart
+      parameters:
+      - $ref: '#/parameters/AuthorizationHeader'
+      - $ref: '#/parameters/RequestIdHeader'
+      - $ref: '#/parameters/APIVersionHeader'
+      - $ref: '#/parameters/ContentTypeHeader'
+      - $ref: '#/parameters/AcceptHeader'
+      - $ref: '#/parameters/CartIdPathParam'
+      - in: body
+        name: customer
+        description: Customer info
+        required: true
+        schema:
+            $ref: '#/definitions/SendToPosCustomer'
+      responses:
+        200:
+          description: Cart found
+          schema:
+            $ref: '#/definitions/CartResponse'
+        400:
+          $ref : '#/responses/BadInputResponse'
+        404:
+          $ref : '#/responses/NotFoundResponse'
+        401:
+          $ref : '#/responses/UnauthorizedResponse'
+        406:
+          $ref : '#/responses/IncorrectAcceptHeaderResponse'
+        415:
+          $ref : '#/responses/IncorrectContentTypeResponse'
+
+
 parameters:
   AuthorizationHeader:
     in: header
@@ -967,7 +1004,11 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/ExtendedProductData'
-  
+      ProductCareOptions:
+        type: array
+        items:
+          $ref: '#/definitions/ProductCareOptions'
+          
   ExtendedProductData:
     type: object
     required:
@@ -1308,7 +1349,24 @@ definitions:
       Commission:
         type: number
         example: 40.44
-
+  
+  SendToPosCustomer:
+    type: object
+    required:
+    - FirstName
+    - LastName
+    - Phone
+    properties:
+      FirstName:
+        type: string
+        example: "Jo"
+      LastName:
+        type: string
+        example: "Max"
+      Phone:
+        type: string
+        example: "0465889755"
+  
 # Added by API Auto Mocking Plugin
 #host: virtserver.swaggerhub.com
 host: www-buddy-dev3.dev.hndigital.cloud
