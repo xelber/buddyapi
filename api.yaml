@@ -1048,6 +1048,10 @@ definitions:
         $ref: '#/definitions/ResponseHeader'
       Cart:
         $ref: '#/definitions/Cart'
+      LastItemAdded:
+        type: string
+        example: "70537a62-afb0-4fff-828a-57eae60b2b06"
+        format: uuid
   
   Cart:
     type: object
