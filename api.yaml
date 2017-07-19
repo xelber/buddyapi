@@ -1235,9 +1235,6 @@ definitions:
       NegotiatedPrice:
         type: number
         example: 2500.00
-      Commission:
-        type: number
-        example: 200.00
   
   PricingCalculatorResponse:
     type: object
