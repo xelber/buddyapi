@@ -1062,6 +1062,7 @@ definitions:
     - Totals
     - CreatedDate
     - LastUpdatedDate
+    - Status
     properties:
       CartId:
         type: string
@@ -1084,6 +1085,9 @@ definitions:
       LastUpdatedDate:
         type: string
         example: "2017-04-20 23:20:28"
+      Status:
+        type: string
+        enum : ['OPEN','SENT']
   
   CartOwner:
     type: object
