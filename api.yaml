@@ -1096,6 +1096,7 @@ definitions:
     - SalesPersonId
     - StoreId
     - CorpChannel
+    - Franchise
     properties:
       SalesPerson:
         type: string
@@ -1110,6 +1111,9 @@ definitions:
         type: string
         example: "206fae7e-26f3-465e-b0b0-1b0b2990191f"
         format: uuid
+      Franchise:
+        type: string
+        example: "2656"
   
   CartItem:
     type: object
