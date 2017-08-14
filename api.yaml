@@ -1273,6 +1273,7 @@ definitions:
     - Commission
     - TotalCommission
     - IncentiveVoucherAmount
+    - TrueCost
     properties:
       CorpChannel:
         type: string
@@ -1318,6 +1319,9 @@ definitions:
         type: number
         example: 143.08
       IncentiveVoucherAmount:
+        type: number
+        example: 143.08
+      TrueCost:
         type: number
         example: 143.08
   
