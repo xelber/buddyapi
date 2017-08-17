@@ -557,6 +557,8 @@ paths:
           $ref : '#/responses/IncorrectAcceptHeaderResponse'
         415:
           $ref : '#/responses/IncorrectContentTypeResponse'
+        500:
+          $ref : '#/responses/ServerErrorResponse'
 
 
 parameters:
@@ -627,6 +629,8 @@ responses:
     description: "Incorrect accept header - only application/json at present"
   IncorrectContentTypeResponse: 
     description: "Incorrect content type header - only application/json at present"
+  ServerErrorResponse: 
+    description: "Server error, please try again"
 
 definitions:
   
