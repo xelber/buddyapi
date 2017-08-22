@@ -559,8 +559,8 @@ paths:
           $ref : '#/responses/IncorrectContentTypeResponse'
         500:
           $ref : '#/responses/ServerErrorResponse'
-        409:
-          "description" : "Order already sent"
+        423:
+          "description" : "Cart locked (Order already sent to POS)"
 
 
 parameters:
