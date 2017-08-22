@@ -559,6 +559,8 @@ paths:
           $ref : '#/responses/IncorrectContentTypeResponse'
         500:
           $ref : '#/responses/ServerErrorResponse'
+        409:
+          "description" : "Order already sent"
 
 
 parameters:
