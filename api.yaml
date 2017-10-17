@@ -537,11 +537,11 @@ paths:
       - $ref: '#/parameters/AcceptHeader'
       - $ref: '#/parameters/CartIdPathParam'
       - in: body
-        name: customer
-        description: Customer info
+        name: sendToPosRequest
+        description: Information needed to send the cart to pos
         required: true
         schema:
-            $ref: '#/definitions/SendToPosCustomer'
+            $ref: '#/definitions/SendToPosRequest'
       responses:
         200:
           description: Cart found
@@ -1369,12 +1369,13 @@ definitions:
         type: number
         example: 40.44
   
-  SendToPosCustomer:
+  SendToPosRequest:
     type: object
     required:
     - FirstName
     - LastName
     - Phone
+    - SalesPersonId
     properties:
       FirstName:
         type: string
@@ -1385,6 +1386,11 @@ definitions:
       Phone:
         type: string
         example: "0465889755"
+      SalesPersonId:
+        type: string
+        example: "78373823792"
+        
+
   
 # Added by API Auto Mocking Plugin
 #host: virtserver.swaggerhub.com
