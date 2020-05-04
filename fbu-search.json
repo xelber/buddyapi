@@ -1,7 +1,7 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "description" : "Internal search API - test",
+    "description" : "Internal search API",
     "version" : "1.0.0",
     "title" : "Internal search API",
     "contact" : {
