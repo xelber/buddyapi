@@ -374,7 +374,11 @@
             "type" : "boolean",
             "example" : true
           },
-          "Count" : {
+          "ProductCount" : {
+            "type" : "integer",
+            "example" : 100
+          },
+          "SuppliersCount" : {
             "type" : "integer",
             "example" : 100
           }
