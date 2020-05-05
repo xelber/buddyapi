@@ -77,31 +77,52 @@
         }
       }
     },
-    "/search/{suburb}/{searchTerm}" : {
+    "/products/search" : {
       "get" : {
         "tags" : [ "buyers" ],
-        "summary" : "Return a list of products certain subrurb and category.",
+        "summary" : "Return a list of products",
         "operationId" : "searchProducts",
-        "description" : "You can retrive a list of products certain subrurb and category.\n",
+        "description" : "Return a list of products.\n",
         "produces" : [ "application/json" ],
         "parameters" : [ {
-          "in" : "path",
-          "name" : "suburb",
-          "description" : "Subrub with postcode, e.g. rouse-hill-2155",
-          "required" : true,
+          "in" : "query",
+          "name" : "query",
+          "description" : "Search Query, e.g. Milk",
+          "required" : false,
           "type" : "string"
         }, {
-          "in" : "path",
-          "name" : "searchTerm",
-          "description" : "any search term",
-          "required" : true,
+          "in" : "query",
+          "name" : "location",
+          "description" : "Subrub with postcode, e.g. rouse-hill-2155",
+          "required" : false,
           "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "category[]",
+          "description" : "Root level category, e.g. fruit-veg-herbs",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "from",
+          "description" : "Results to start from",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "in" : "query",
+          "name" : "size",
+          "description" : "Results page size",
+          "required" : false,
+          "type" : "integer"
         } ],
         "responses" : {
           "200" : {
             "description" : "search results matching criteria",
             "schema" : {
-              "$ref" : "#/definitions/ProductSearchResponse"
+              "$ref" : "#/definitions/SupplierSearchResponse"
             }
           },
           "400" : {
@@ -153,42 +174,6 @@
         }
       }
     },
-    "ProductSearchResponse" : {
-      "type" : "object",
-      "properties" : {
-        "Meta" : {
-          "$ref" : "#/definitions/Meta"
-        },
-        "Filters" : {
-          "properties" : {
-            "Categories" : {
-              "$ref" : "#/definitions/CategoryOptions"
-            },
-            "Suppliers" : {
-              "$ref" : "#/definitions/SupplierOptions"
-            },
-            "Dietary" : {
-              "$ref" : "#/definitions/DietaryOptions"
-            },
-            "Search" : {
-              "$ref" : "#/definitions/SearchOptions"
-            }
-          }
-        },
-        "Suppliers" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Supplier"
-          }
-        },
-        "Products" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Product"
-          }
-        }
-      }
-    },
     "Meta" : {
       "properties" : {
         "Count" : {
@@ -203,26 +188,6 @@
         },
         "Currency" : {
           "$ref" : "#/definitions/MetaCurrency"
-        },
-        "PageInfo" : {
-          "$ref" : "#/definitions/MetaPageInfo"
-        }
-      }
-    },
-    "MetaPageInfo" : {
-      "type" : "object",
-      "properties" : {
-        "PageType" : {
-          "type" : "string",
-          "example" : "SearchResults"
-        },
-        "OrderBy" : {
-          "type" : "string",
-          "example" : "Products"
-        },
-        "SearchString" : {
-          "type" : "string",
-          "example" : "Pineapple"
         }
       }
     },
@@ -463,11 +428,7 @@
             "type" : "boolean",
             "example" : true
           },
-          "ProductCount" : {
-            "type" : "integer",
-            "example" : 100
-          },
-          "SuppliersCount" : {
+          "Count" : {
             "type" : "integer",
             "example" : 100
           }
@@ -524,157 +485,27 @@
         }
       }
     },
-    "SearchOptions" : {
-      "properties" : {
-        "SearchString" : {
-          "type" : "string",
-          "example" : "Pineapple"
-        }
-      }
-    },
-    "Product" : {
-      "type" : "object",
+    "CurrentCategories" : {
       "properties" : {
         "Id" : {
           "type" : "integer",
-          "example" : 1
+          "example" : 3
         },
         "Name" : {
           "type" : "string",
-          "example" : "Pineapple"
+          "example" : "Alcohol"
         },
-        "SupplierId" : {
-          "type" : "integer",
-          "example" : 23
-        },
-        "Images" : {
-          "$ref" : "#/definitions/ProductImages"
-        },
-        "Items" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/ProductItems"
-          }
-        }
-      }
-    },
-    "ProductItems" : {
-      "type" : "object",
-      "properties" : {
-        "Id" : {
-          "type" : "integer",
-          "example" : 1
-        },
-        "Name" : {
+        "Slug" : {
           "type" : "string",
-          "example" : "Slices"
+          "example" : "alcohol"
         },
-        "Descriptions" : {
-          "type" : "string",
-          "example" : "Dont put pineapple on a pizza"
-        },
-        "MinimumQuantity" : {
+        "TotalSuppliers" : {
           "type" : "integer",
-          "example" : 12
+          "example" : 33
         },
-        "Prices" : {
-          "$ref" : "#/definitions/ProductItemPrices"
-        },
-        "Specials" : {
-          "$ref" : "#/definitions/ProductItemSpecial"
-        },
-        "Variations" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/ProductItemVariations"
-          }
-        }
-      }
-    },
-    "ProductItemPrices" : {
-      "type" : "object",
-      "properties" : {
-        "Id" : {
+        "TotalProducts" : {
           "type" : "integer",
-          "example" : 1
-        },
-        "Price" : {
-          "type" : "integer",
-          "example" : 12.69
-        },
-        "PricePerAmount" : {
-          "type" : "integer",
-          "example" : 12.69
-        },
-        "PricePerMetric" : {
-          "type" : "integer",
-          "example" : 22.49
-        }
-      }
-    },
-    "ProductItemSpecial" : {
-      "type" : "object",
-      "properties" : {
-        "OnSpecial" : {
-          "type" : "boolean",
-          "example" : false
-        },
-        "Price" : {
-          "type" : "integer",
-          "example" : 23.98
-        },
-        "Message" : {
-          "type" : "string",
-          "example" : "Cheap as bro"
-        }
-      }
-    },
-    "ProductImages" : {
-      "type" : "object",
-      "properties" : {
-        "SmallImage" : {
-          "type" : "string",
-          "example" : "/images/path/name.jpg"
-        },
-        "LargeImage" : {
-          "type" : "string",
-          "example" : "/images/path/name.jpg"
-        }
-      }
-    },
-    "ProductItemVariations" : {
-      "type" : "object",
-      "properties" : {
-        "Name" : {
-          "type" : "string",
-          "example" : "How do you want your pineapples?"
-        },
-        "OptionType" : {
-          "type" : "string",
-          "example" : "Single|Multiple|Text"
-        },
-        "Options" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/ProductItemVariationOptions"
-          }
-        }
-      }
-    },
-    "ProductItemVariationOptions" : {
-      "type" : "object",
-      "properties" : {
-        "Name" : {
-          "type" : "string",
-          "example" : "Sliced and diced"
-        },
-        "Text" : {
-          "type" : "string",
-          "example" : "Anyway"
-        },
-        "Price" : {
-          "type" : "integer",
-          "example" : 23.98
+          "example" : 432
         }
       }
     }
