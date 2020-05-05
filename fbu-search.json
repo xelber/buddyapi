@@ -202,10 +202,10 @@
             }
           }
         },
-        "Suppliers" : {
+        "Products" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/definitions/Supplier"
+            "$ref" : "#/definitions/Product"
           }
         }
       }
@@ -363,6 +363,22 @@
         }
       }
     },
+    "Product" : {
+      "properties" : {
+        "Id" : {
+          "type" : "integer",
+          "example" : 10
+        },
+        "Name" : {
+          "type" : "string",
+          "example" : "In2food Sydney"
+        },
+        "NavPath" : {
+          "type" : "string",
+          "example" : "/in2food-sydney"
+        }
+      }
+    },
     "SupplierDeliveryDayOfWeek" : {
       "properties" : {
         "Monday" : {
@@ -464,9 +480,13 @@
             "type" : "boolean",
             "example" : true
           },
-          "Count" : {
+          "ProductCount" : {
             "type" : "integer",
             "example" : 100
+          },
+          "SuppliersCount" : {
+            "type" : "integer",
+            "example" : 8
           }
         }
       }
