@@ -107,6 +107,15 @@
           }
         }, {
           "in" : "query",
+          "name" : "supplier[]",
+          "description" : "Supplier slug, e.g. mds-sydney",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
           "name" : "from",
           "description" : "Results to start from",
           "required" : false,
@@ -122,7 +131,7 @@
           "200" : {
             "description" : "search results matching criteria",
             "schema" : {
-              "$ref" : "#/definitions/SupplierSearchResponse"
+              "$ref" : "#/definitions/ProductSearchResponse"
             }
           },
           "400" : {
@@ -148,6 +157,33 @@
       }
     },
     "SupplierSearchResponse" : {
+      "type" : "object",
+      "properties" : {
+        "Meta" : {
+          "$ref" : "#/definitions/Meta"
+        },
+        "Filters" : {
+          "properties" : {
+            "Categories" : {
+              "$ref" : "#/definitions/CategoryOptions"
+            },
+            "Suppliers" : {
+              "$ref" : "#/definitions/SupplierOptions"
+            },
+            "Dietary" : {
+              "$ref" : "#/definitions/DietaryOptions"
+            }
+          }
+        },
+        "Suppliers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Supplier"
+          }
+        }
+      }
+    },
+    "ProductSearchResponse" : {
       "type" : "object",
       "properties" : {
         "Meta" : {
@@ -309,11 +345,11 @@
         },
         "MinOrder" : {
           "type" : "string",
-          "example" : "$100"
+          "example" : "100"
         },
         "FreeDelivery" : {
           "type" : "string",
-          "example" : "$200"
+          "example" : "200"
         },
         "DeliveryDates" : {
           "$ref" : "#/definitions/SupplierDeliveryDayOfWeek"
@@ -323,35 +359,7 @@
           "example" : "published"
         },
         "Access" : {
-          "type" : "array",
-          "items" : {
-            "properties" : {
-              "OnNetwork" : {
-                "type" : "boolean",
-                "example" : true
-              },
-              "WholesaleAvailableToAll" : {
-                "type" : "boolean",
-                "example" : true
-              },
-              "WholesaleAvailableRequirement" : {
-                "type" : "string",
-                "example" : "selected_customers"
-              },
-              "CurrentUserAccess" : {
-                "type" : "boolean",
-                "example" : true
-              },
-              "FirstTimeAccessBuffer" : {
-                "type" : "boolean",
-                "example" : true
-              },
-              "FirstTimeAccessBufferDays" : {
-                "type" : "string",
-                "example" : 2
-              }
-            }
-          }
+          "$ref" : "#/definitions/SupplierAccess"
         }
       }
     },
@@ -377,6 +385,34 @@
         },
         "Sunday" : {
           "type" : "boolean"
+        }
+      }
+    },
+    "SupplierAccess" : {
+      "properties" : {
+        "OnNetwork" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "WholesaleAvailableToAll" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "WholesaleAvailableRequirement" : {
+          "type" : "string",
+          "example" : "selected_customers"
+        },
+        "CurrentUserAccess" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "FirstTimeAccessBuffer" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "FirstTimeAccessBufferDays" : {
+          "type" : "string",
+          "example" : 2
         }
       }
     },
