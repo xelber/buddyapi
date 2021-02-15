@@ -322,6 +322,10 @@
         "SearchString" : {
           "type" : "string",
           "example" : "Pineapple"
+        },
+        "Referrer" : {
+          "type" : "string",
+          "example" : "https://www.foodbyus.com.au/wholesale/sydney-2000/s/apple%20red"
         }
       }
     },
@@ -575,7 +579,7 @@
         },
         "UserTypeName" : {
           "type" : "string",
-          "example" : "Home Buyer"
+          "example" : "wholesale"
         }
       }
     },
