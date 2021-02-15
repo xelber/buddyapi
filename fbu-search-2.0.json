@@ -1,0 +1,836 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Internal search API",
+    "version" : "2.0.0",
+    "title" : "Internal search API",
+    "contact" : {
+      "email" : "you@your-company.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags" : [ {
+    "name" : "buyers",
+    "description" : "Operations available for buyers"
+  } ],
+  "paths" : {
+    "/categories/{suburb}" : {
+      "get" : {
+        "tags" : [ "buyers" ],
+        "summary" : "Return a list of categories",
+        "operationId" : "searchCategories",
+        "description" : "You can retrive a list of categories for a certain subrurb.\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "suburb",
+          "description" : "Subrub with postcode, e.g. rouse-hill-2155",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "$ref" : "#/definitions/CategorySearchResponse"
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/suppliers/{suburb}/{category}" : {
+      "get" : {
+        "tags" : [ "buyers" ],
+        "summary" : "Return a list of suppliers within a suburb, category",
+        "operationId" : "searchSubCategories",
+        "description" : "You can retrive a list of suppliers for a certain subrurb and category.\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "suburb",
+          "description" : "Subrub with postcode, e.g. rouse-hill-2155",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "path",
+          "name" : "category",
+          "description" : "Root level category, e.g. fruit-veg-herbs",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "$ref" : "#/definitions/SupplierSearchResponse"
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/products/search/" : {
+      "get" : {
+        "tags" : [ "buyers" ],
+        "summary" : "Return a list of products certain subrurb and category.",
+        "operationId" : "searchProducts",
+        "description" : "You can retrive a list of products certain subrurb and category.\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "query",
+          "description" : "Search Query, e.g. Milk",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "location",
+          "description" : "Subrub with postcode, e.g. rouse-hill-2155",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "category[]",
+          "description" : "Root level category, e.g. fruit-veg-herbs",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "supplier[]",
+          "description" : "Supplier slug, e.g. mds-sydney",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "from",
+          "description" : "Results to start from",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "in" : "query",
+          "name" : "size",
+          "description" : "Results page size",
+          "required" : false,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "$ref" : "#/definitions/ProductSearchResponse"
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/products/compare/" : {
+      "get" : {
+        "tags" : [ "buyers" ],
+        "summary" : "Check if products are comparable.",
+        "operationId" : "compareProducts",
+        "description" : "Check if products are comparable.\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "location",
+          "description" : "Subrub with postcode, e.g. rouse-hill-2155",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "base_product_ids[]",
+          "description" : "Base product Ids",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "$ref" : "#/definitions/ProductComparableResponse"
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "CategorySearchResponse" : {
+      "type" : "object",
+      "properties" : {
+        "Meta" : {
+          "$ref" : "#/definitions/Meta"
+        },
+        "Categories" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Category"
+          }
+        }
+      }
+    },
+    "SupplierSearchResponse" : {
+      "type" : "object",
+      "properties" : {
+        "Meta" : {
+          "$ref" : "#/definitions/Meta"
+        },
+        "Filters" : {
+          "properties" : {
+            "Categories" : {
+              "$ref" : "#/definitions/CategoryOptions"
+            },
+            "Suppliers" : {
+              "$ref" : "#/definitions/SupplierOptions"
+            },
+            "Dietary" : {
+              "$ref" : "#/definitions/DietaryOptions"
+            }
+          }
+        },
+        "Suppliers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Supplier"
+          }
+        }
+      }
+    },
+    "ProductSearchResponse" : {
+      "type" : "object",
+      "properties" : {
+        "Meta" : {
+          "$ref" : "#/definitions/Meta"
+        },
+        "Filters" : {
+          "properties" : {
+            "Categories" : {
+              "$ref" : "#/definitions/CategoryOptions"
+            },
+            "Suppliers" : {
+              "$ref" : "#/definitions/SupplierOptions"
+            },
+            "Dietary" : {
+              "$ref" : "#/definitions/DietaryOptions"
+            },
+            "Search" : {
+              "$ref" : "#/definitions/SearchOptions"
+            }
+          }
+        },
+        "Suppliers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Supplier"
+          }
+        },
+        "Products" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Product"
+          }
+        }
+      }
+    },
+    "ProductComparableResponse" : {
+      "type" : "array",
+      "items" : {
+        "properties" : {
+          "BaseProductId" : {
+            "type" : "integer",
+            "example" : 32893
+          },
+          "IsComparable" : {
+            "type" : "boolean",
+            "example" : true
+          }
+        }
+      }
+    },
+    "Meta" : {
+      "properties" : {
+        "Count" : {
+          "type" : "integer",
+          "example" : 10
+        },
+        "Page" : {
+          "$ref" : "#/definitions/MetaUser"
+        },
+        "User" : {
+          "$ref" : "#/definitions/MetaUser"
+        },
+        "Location" : {
+          "$ref" : "#/definitions/MetaLocation"
+        },
+        "Currency" : {
+          "$ref" : "#/definitions/MetaCurrency"
+        },
+        "PageInfo" : {
+          "$ref" : "#/definitions/MetaPageInfo"
+        },
+        "CartInfo" : {
+          "$ref" : "#/definitions/MetaCartInfo"
+        }
+      }
+    },
+    "MetaPageInfo" : {
+      "type" : "object",
+      "properties" : {
+        "PageType" : {
+          "type" : "string",
+          "example" : "product-search"
+        },
+        "HtmlTitle" : {
+          "type" : "string",
+          "example" : "Apple red - Foodbyus"
+        },
+        "HtmlDescription" : {
+          "type" : "string",
+          "example" : "Apple red - Foodbyus"
+        },
+        "MetaTitle" : {
+          "type" : "string",
+          "example" : "Apple red - Foodbyus"
+        },
+        "OrderBy" : {
+          "type" : "string",
+          "example" : "Products"
+        },
+        "SearchString" : {
+          "type" : "string",
+          "example" : "Pineapple"
+        }
+      }
+    },
+    "MetaUser" : {
+      "properties" : {
+        "IsLoggedIn" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "UserData" : {
+          "$ref" : "#/definitions/UserData"
+        }
+      }
+    },
+    "MetaCartInfo" : {
+      "properties" : {
+        "CartRef" : {
+          "type" : "string",
+          "example" : "NSW-32893223"
+        }
+      }
+    },
+    "MetaLocation" : {
+      "properties" : {
+        "AskForLocation" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "SuburbId" : {
+          "type" : "integer",
+          "example" : 101
+        },
+        "CountrySubdivisionId" : {
+          "type" : "integer",
+          "example" : 101
+        },
+        "Postcode" : {
+          "type" : "string",
+          "example" : "2000"
+        },
+        "LocationName" : {
+          "type" : "string",
+          "example" : "Sydney"
+        },
+        "LocationSlug" : {
+          "type" : "string",
+          "example" : "sydney-2000"
+        }
+      }
+    },
+    "MetaCurrency" : {
+      "properties" : {
+        "Symbol" : {
+          "type" : "string",
+          "example" : "$"
+        },
+        "DecimalPlaces" : {
+          "type" : "integer",
+          "example" : 2
+        }
+      }
+    },
+    "Category" : {
+      "required" : [ "name" ],
+      "properties" : {
+        "Id" : {
+          "type" : "integer",
+          "example" : 10
+        },
+        "Name" : {
+          "type" : "string",
+          "example" : "Dairy & Eggs"
+        },
+        "NavPath" : {
+          "type" : "string",
+          "format" : "url",
+          "example" : "/dairy-and-eggs"
+        },
+        "ProductCount" : {
+          "type" : "integer",
+          "example" : 156
+        },
+        "Images" : {
+          "$ref" : "#/definitions/Images"
+        }
+      }
+    },
+    "Images" : {
+      "properties" : {
+        "BackgroundImage" : {
+          "type" : "string",
+          "example" : "/images/path/name.jpg"
+        },
+        "LogoImage" : {
+          "type" : "string",
+          "example" : "/images/path/name.jpg"
+        }
+      }
+    },
+    "Supplier" : {
+      "properties" : {
+        "Id" : {
+          "type" : "integer",
+          "example" : 10
+        },
+        "Name" : {
+          "type" : "string",
+          "example" : "In2food Sydney"
+        },
+        "IsFavourite" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "NavPath" : {
+          "type" : "string",
+          "example" : "/in2food-sydney"
+        },
+        "CutOffTime" : {
+          "type" : "string",
+          "example" : "11:59pm today"
+        },
+        "ProductCount" : {
+          "type" : "integer",
+          "example" : 156
+        },
+        "Images" : {
+          "$ref" : "#/definitions/Images"
+        },
+        "IsFreeDelivery" : {
+          "type" : "boolean"
+        },
+        "NextDelivery" : {
+          "type" : "string",
+          "example" : "Tomorrow"
+        },
+        "MinOrder" : {
+          "type" : "string",
+          "example" : "$100"
+        },
+        "FreeDelivery" : {
+          "type" : "string",
+          "example" : "$200"
+        },
+        "DeliveryDates" : {
+          "$ref" : "#/definitions/SupplierDeliveryDayOfWeek"
+        },
+        "Status" : {
+          "type" : "string",
+          "example" : "published"
+        },
+        "Access" : {
+          "type" : "array",
+          "items" : {
+            "properties" : {
+              "OnNetwork" : {
+                "type" : "boolean",
+                "example" : true
+              },
+              "WholesaleAvailableToAll" : {
+                "type" : "boolean",
+                "example" : true
+              },
+              "WholesaleAvailableRequirement" : {
+                "type" : "string",
+                "example" : "selected_customers"
+              },
+              "CurrentUserAccess" : {
+                "type" : "boolean",
+                "example" : true
+              },
+              "FirstTimeAccessBuffer" : {
+                "type" : "boolean",
+                "example" : true
+              },
+              "FirstTimeAccessBufferDays" : {
+                "type" : "string",
+                "example" : 2
+              }
+            }
+          }
+        },
+        "Ratings" : {
+          "type" : "object",
+          "properties" : {
+            "Rating" : {
+              "type" : "number",
+              "example" : 4.7
+            },
+            "OrderCount" : {
+              "type" : "string",
+              "example" : "500+"
+            },
+            "ProductCount" : {
+              "type" : "integer",
+              "example" : 39947
+            },
+            "SpecialsCount" : {
+              "type" : "integer",
+              "example" : 76
+            }
+          }
+        }
+      }
+    },
+    "SupplierDeliveryDayOfWeek" : {
+      "properties" : {
+        "Monday" : {
+          "type" : "boolean"
+        },
+        "Tuesday" : {
+          "type" : "boolean"
+        },
+        "Wednesday" : {
+          "type" : "boolean"
+        },
+        "Thursday" : {
+          "type" : "boolean"
+        },
+        "Friday" : {
+          "type" : "boolean"
+        },
+        "Saturday" : {
+          "type" : "boolean"
+        },
+        "Sunday" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "UserData" : {
+      "properties" : {
+        "Id" : {
+          "type" : "integer",
+          "example" : 25
+        },
+        "FirstName" : {
+          "type" : "string",
+          "example" : "Ben"
+        },
+        "LastName" : {
+          "type" : "string",
+          "example" : "Simmons"
+        },
+        "BusinessName" : {
+          "type" : "string",
+          "example" : "76ers"
+        },
+        "UserTypeId" : {
+          "type" : "integer",
+          "example" : 13
+        },
+        "UserTypeName" : {
+          "type" : "string",
+          "example" : "Home Buyer"
+        }
+      }
+    },
+    "CategoryOptions" : {
+      "type" : "array",
+      "items" : {
+        "properties" : {
+          "Id" : {
+            "type" : "integer",
+            "example" : 4
+          },
+          "Name" : {
+            "type" : "string",
+            "example" : "Alcohol"
+          },
+          "Slug" : {
+            "type" : "string",
+            "example" : "alcohol"
+          },
+          "Selected" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "ProductCount" : {
+            "type" : "integer",
+            "example" : 100
+          },
+          "SuppliersCount" : {
+            "type" : "integer",
+            "example" : 100
+          }
+        }
+      }
+    },
+    "DietaryOptions" : {
+      "type" : "array",
+      "items" : {
+        "properties" : {
+          "Id" : {
+            "type" : "integer",
+            "example" : 4
+          },
+          "Name" : {
+            "type" : "string",
+            "example" : "Gluten Free"
+          },
+          "Slug" : {
+            "type" : "string",
+            "example" : "gluten-free"
+          },
+          "Selected" : {
+            "type" : "boolean",
+            "example" : true
+          }
+        }
+      }
+    },
+    "SupplierOptions" : {
+      "type" : "array",
+      "items" : {
+        "properties" : {
+          "Id" : {
+            "type" : "integer",
+            "example" : 4
+          },
+          "Name" : {
+            "type" : "string",
+            "example" : "Brooklyn Boy Bagels"
+          },
+          "Slug" : {
+            "type" : "string",
+            "example" : "brooklyn-boy-bagels"
+          },
+          "Selected" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "Count" : {
+            "type" : "integer",
+            "example" : 100
+          }
+        }
+      }
+    },
+    "SearchOptions" : {
+      "properties" : {
+        "SearchString" : {
+          "type" : "string",
+          "example" : "Pineapple"
+        }
+      }
+    },
+    "Product" : {
+      "type" : "object",
+      "properties" : {
+        "Id" : {
+          "type" : "integer",
+          "example" : 1
+        },
+        "Name" : {
+          "type" : "string",
+          "example" : "Pineapple"
+        },
+        "IsFavourite" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "SupplierId" : {
+          "type" : "integer",
+          "example" : 23
+        },
+        "Images" : {
+          "$ref" : "#/definitions/ProductImages"
+        },
+        "Specials" : {
+          "$ref" : "#/definitions/ProductItemSpecial"
+        },
+        "Items" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ProductItems"
+          }
+        },
+        "Variations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ProductItemVariations"
+          }
+        }
+      }
+    },
+    "ProductItems" : {
+      "type" : "object",
+      "properties" : {
+        "Id" : {
+          "type" : "integer",
+          "example" : 1
+        },
+        "Name" : {
+          "type" : "string",
+          "example" : "Slices"
+        },
+        "Descriptions" : {
+          "type" : "string",
+          "example" : "Dont put pineapple on a pizza"
+        },
+        "MinimumQuantity" : {
+          "type" : "integer",
+          "example" : 12
+        },
+        "Quantity" : {
+          "type" : "integer",
+          "example" : 2
+        },
+        "QuantityMetric" : {
+          "type" : "string",
+          "example" : "unit"
+        },
+        "Prices" : {
+          "$ref" : "#/definitions/ProductItemPrices"
+        },
+        "Specials" : {
+          "$ref" : "#/definitions/ProductItemSpecial"
+        }
+      }
+    },
+    "ProductItemPrices" : {
+      "type" : "object",
+      "properties" : {
+        "Id" : {
+          "type" : "integer",
+          "example" : 1
+        },
+        "Price" : {
+          "type" : "integer",
+          "example" : 12.69
+        },
+        "PricePerAmount" : {
+          "type" : "integer",
+          "example" : 12.69
+        },
+        "PricePerMetric" : {
+          "type" : "integer",
+          "example" : 22.49
+        }
+      }
+    },
+    "ProductItemSpecial" : {
+      "type" : "object",
+      "properties" : {
+        "OnSpecial" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "Price" : {
+          "type" : "integer",
+          "example" : 23.98
+        },
+        "Message" : {
+          "type" : "string",
+          "example" : "Cheap as bro"
+        }
+      }
+    },
+    "ProductImages" : {
+      "type" : "object",
+      "properties" : {
+        "SmallImage" : {
+          "type" : "string",
+          "example" : "/images/path/name.jpg"
+        },
+        "LargeImage" : {
+          "type" : "string",
+          "example" : "/images/path/name.jpg"
+        }
+      }
+    },
+    "ProductItemVariations" : {
+      "type" : "object",
+      "properties" : {
+        "Name" : {
+          "type" : "string",
+          "example" : "How do you want your pineapples?"
+        },
+        "OptionType" : {
+          "type" : "string",
+          "example" : "Single|Multiple|Text"
+        },
+        "Options" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ProductItemVariationOptions"
+          }
+        }
+      }
+    },
+    "ProductItemVariationOptions" : {
+      "type" : "object",
+      "properties" : {
+        "Name" : {
+          "type" : "string",
+          "example" : "Sliced and diced"
+        },
+        "Text" : {
+          "type" : "string",
+          "example" : "Anyway"
+        },
+        "Price" : {
+          "type" : "integer",
+          "example" : 23.98
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "schemes" : [ "https" ],
+  "basePath" : "/hiranmil/FBUSearch/2.0.0"
+}
