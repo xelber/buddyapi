@@ -276,6 +276,10 @@
           "type" : "integer",
           "example" : 10
         },
+        "Sort" : {
+          "type" : "string",
+          "example" : "rel|price"
+        },
         "Page" : {
           "$ref" : "#/definitions/MetaUser"
         },
@@ -462,12 +466,16 @@
           "example" : "Tomorrow"
         },
         "MinOrder" : {
-          "type" : "string",
-          "example" : "$100"
+          "type" : "number",
+          "example" : 100
         },
         "FreeDelivery" : {
-          "type" : "string",
-          "example" : "$200"
+          "type" : "number",
+          "example" : 200
+        },
+        "DeliveryCost" : {
+          "type" : "number",
+          "example" : 200
         },
         "DeliveryDates" : {
           "$ref" : "#/definitions/SupplierDeliveryDayOfWeek"
@@ -475,6 +483,18 @@
         "Status" : {
           "type" : "string",
           "example" : "published"
+        },
+        "TwilioNumber" : {
+          "type" : "string",
+          "example" : "+614903432361"
+        },
+        "OwnDelivery" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "AllowPickup" : {
+          "type" : "boolean",
+          "example" : false
         },
         "Access" : {
           "type" : "array",
@@ -503,6 +523,14 @@
               "FirstTimeAccessBufferDays" : {
                 "type" : "string",
                 "example" : 2
+              },
+              "RetailEnabled" : {
+                "type" : "boolean",
+                "example" : true
+              },
+              "WholesaleEnabled" : {
+                "type" : "boolean",
+                "example" : false
               }
             }
           }
@@ -577,9 +605,17 @@
           "type" : "integer",
           "example" : 13
         },
+        "IsWholesale" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "IsRetail" : {
+          "type" : "boolean",
+          "example" : false
+        },
         "UserTypeName" : {
           "type" : "string",
-          "example" : "wholesale"
+          "example" : "Restaurant"
         }
       }
     },
@@ -683,6 +719,10 @@
           "type" : "string",
           "example" : "Pineapple"
         },
+        "Description" : {
+          "type" : "string",
+          "example" : "Pineapple"
+        },
         "IsFavourite" : {
           "type" : "boolean",
           "example" : true
@@ -721,6 +761,14 @@
         "Name" : {
           "type" : "string",
           "example" : "Slices"
+        },
+        "IsInStock" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "InventoryValidTill" : {
+          "type" : "string",
+          "example" : "15th Feb"
         },
         "Descriptions" : {
           "type" : "string",
