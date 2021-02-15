@@ -762,6 +762,14 @@
           "type" : "string",
           "example" : "Slices"
         },
+        "Descriptions" : {
+          "type" : "string",
+          "example" : "Dont put pineapple on a pizza"
+        },
+        "Sku" : {
+          "type" : "string",
+          "example" : "X3289"
+        },
         "IsInStock" : {
           "type" : "boolean",
           "example" : true
@@ -769,10 +777,6 @@
         "InventoryValidTill" : {
           "type" : "string",
           "example" : "15th Feb"
-        },
-        "Descriptions" : {
-          "type" : "string",
-          "example" : "Dont put pineapple on a pizza"
         },
         "MinimumQuantity" : {
           "type" : "integer",
@@ -829,6 +833,31 @@
         "Message" : {
           "type" : "string",
           "example" : "Cheap as bro"
+        }
+      }
+    },
+    "ProductItemBaseProductDetails" : {
+      "type" : "object",
+      "properties" : {
+        "HasBaseProduct" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "BaseProductId" : {
+          "type" : "integer",
+          "example" : 323
+        },
+        "BaseProductName" : {
+          "type" : "string",
+          "example" : "Whole Grade A Red Apple by the Kilo"
+        },
+        "IsComparable" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "ComparableCount" : {
+          "type" : "integer",
+          "example" : 3
         }
       }
     },
