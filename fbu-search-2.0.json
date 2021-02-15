@@ -748,6 +748,9 @@
           "items" : {
             "$ref" : "#/definitions/ProductItemVariations"
           }
+        },
+        "Access" : {
+          "$ref" : "#/definitions/ProductAccess"
         }
       }
     },
@@ -909,6 +912,15 @@
           "items" : {
             "$ref" : "#/definitions/ProductItemVariationOptions"
           }
+        }
+      }
+    },
+    "ProductAccess" : {
+      "type" : "object",
+      "properties" : {
+        "CurrentUserAccess" : {
+          "type" : "boolean",
+          "example" : true
         }
       }
     },
