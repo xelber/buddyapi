@@ -280,9 +280,6 @@
           "type" : "string",
           "example" : "rel|price"
         },
-        "Page" : {
-          "$ref" : "#/definitions/MetaUser"
-        },
         "User" : {
           "$ref" : "#/definitions/MetaUser"
         },
@@ -330,6 +327,23 @@
         "Referrer" : {
           "type" : "string",
           "example" : "https://www.foodbyus.com.au/wholesale/sydney-2000/s/apple%20red"
+        },
+        "Analytics" : {
+          "type" : "object",
+          "properties" : {
+            "Event" : {
+              "type" : "string",
+              "example" : "virtualPageview"
+            },
+            "PageTitle" : {
+              "type" : "string",
+              "example" : "Product Search"
+            },
+            "PageUrl" : {
+              "type" : "string",
+              "example" : "/virtual/search/wholesale/sydney-2000/s/apple%20green"
+            }
+          }
         }
       }
     },
