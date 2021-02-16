@@ -189,6 +189,12 @@
           "items" : {
             "$ref" : "#/definitions/Category"
           }
+        },
+        "Specials" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Special"
+          }
         }
       }
     },
@@ -425,6 +431,47 @@
         "ProductCount" : {
           "type" : "integer",
           "example" : 156
+        },
+        "Images" : {
+          "$ref" : "#/definitions/Images"
+        }
+      }
+    },
+    "Special" : {
+      "required" : [ "name" ],
+      "properties" : {
+        "Id" : {
+          "type" : "integer",
+          "example" : 10
+        },
+        "Message" : {
+          "type" : "string",
+          "example" : "Specials"
+        },
+        "NavPath" : {
+          "type" : "string",
+          "format" : "url",
+          "example" : "/dairy-and-eggs"
+        },
+        "Price" : {
+          "type" : "number",
+          "example" : 12.0
+        },
+        "PricePerAmount" : {
+          "type" : "number",
+          "example" : 3.0
+        },
+        "PricePerMetric" : {
+          "type" : "string",
+          "example" : "Unit"
+        },
+        "StartDate" : {
+          "type" : "string",
+          "example" : "2020-03-12"
+        },
+        "EndDate" : {
+          "type" : "string",
+          "example" : "2021-05-09"
         },
         "Images" : {
           "$ref" : "#/definitions/Images"
