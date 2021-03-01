@@ -1057,7 +1057,7 @@
         },
         "Expiry" : {
           "type" : "string",
-          "example" : "X80980"
+          "example" : "2021-03-22 14:30:00"
         }
       }
     },
