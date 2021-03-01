@@ -175,6 +175,48 @@
           }
         }
       }
+    },
+    "/api/supplier/stock" : {
+      "post" : {
+        "tags" : [ "supplier" ],
+        "summary" : "Update stock information.",
+        "operationId" : "updateStock",
+        "description" : "Update stock information.\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "header",
+          "name" : "X-API-KEY",
+          "description" : "API Key Header",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "StockArray",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/StockUpdateRequest"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/StockUpdateResponse"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          }
+        }
+      }
     }
   },
   "definitions" : {
@@ -999,6 +1041,40 @@
         "Price" : {
           "type" : "integer",
           "example" : 23.98
+        }
+      }
+    },
+    "StockUpdateRequest" : {
+      "type" : "object",
+      "properties" : {
+        "Sku" : {
+          "type" : "string",
+          "example" : "X80980"
+        },
+        "Qty" : {
+          "type" : "integer",
+          "example" : "10"
+        },
+        "Expiry" : {
+          "type" : "string",
+          "example" : "X80980"
+        }
+      }
+    },
+    "StockUpdateResponse" : {
+      "type" : "object",
+      "properties" : {
+        "Sku" : {
+          "type" : "string",
+          "example" : "X80980"
+        },
+        "IsUpdated" : {
+          "type" : "boolean",
+          "example" : false
+        },
+        "Message" : {
+          "type" : "string",
+          "example" : "SKU not found"
         }
       }
     }
