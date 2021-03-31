@@ -1071,7 +1071,7 @@
             "SkuNotFound" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/StockUpdateResponse"
+                "type" : "string"
               }
             }
           }
