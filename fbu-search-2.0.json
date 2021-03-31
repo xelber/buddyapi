@@ -1065,6 +1065,9 @@
           "type" : "string",
           "example" : "success|error"
         },
+        "Meta" : {
+          "type" : "object"
+        },
         "Data" : {
           "type" : "object",
           "properties" : {
