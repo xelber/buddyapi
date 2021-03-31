@@ -205,7 +205,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/StockUpdateResponse"
+                "$ref" : "#/definitions/StandardResponse"
               }
             }
           },
@@ -1061,20 +1061,36 @@
         }
       }
     },
+    "StandardResponse" : {
+      "type" : "object",
+      "properties" : {
+        "Status" : {
+          "type" : "string",
+          "example" : "success|error"
+        },
+        "Data" : {
+          "type" : "object",
+          "properties" : {
+            "SkuNotFound" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/StockUpdateResponse"
+              }
+            }
+          }
+        },
+        "Message" : {
+          "type" : "string",
+          "example" : "An error has occurred"
+        }
+      }
+    },
     "StockUpdateResponse" : {
       "type" : "object",
       "properties" : {
         "Sku" : {
           "type" : "string",
           "example" : "X80980"
-        },
-        "IsUpdated" : {
-          "type" : "boolean",
-          "example" : false
-        },
-        "Message" : {
-          "type" : "string",
-          "example" : "SKU not found"
         }
       }
     }
