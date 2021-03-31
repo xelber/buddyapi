@@ -1084,15 +1084,6 @@
           "example" : "An error has occurred"
         }
       }
-    },
-    "StockUpdateResponse" : {
-      "type" : "object",
-      "properties" : {
-        "Sku" : {
-          "type" : "string",
-          "example" : "X80980"
-        }
-      }
     }
   },
   "host" : "virtserver.swaggerhub.com",
